@@ -29,6 +29,7 @@ func SetupRouter(instanceId string) *gin.Engine {
 	routeEngine.GET("/startElection", controllers.StartElection)
 	routeEngine.POST("/stopElection", controllers.StopElection)
 	routeEngine.GET("/requestElection/:requestInstanceId", controllers.RequestElection)
+	routeEngine.POST("/stopApplication", controllers.StopApplication)
 
 	return routeEngine
 }

@@ -2,22 +2,22 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
 	"os/exec"
 	"time"
 )
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
-	currentTime := fmt.Sprint(time.Now().UnixMilli())
-	randomNumber := fmt.Sprint(rand.Int31n(10000))
-	id := currentTime + randomNumber
+	//Do the election based on
 
-	cmd := exec.Command("bash", "app.sh", id)
+	for i := 0; i < 5; i++ {
+		rand.Seed(time.Now().UnixNano())
+		currentTime := fmt.Sprint(time.Now().UnixMilli())
+		randomNumber := fmt.Sprint(rand.Int31n(10000))
+		id := currentTime + randomNumber
 
-	err := cmd.Run()
-	if err != nil {
-		log.Fatal(err)
+		cmd := exec.Command("bash", "app.sh", id)
+
+		go cmd.Run()
 	}
 }
