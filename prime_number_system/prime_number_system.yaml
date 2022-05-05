@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prime_number_system
+  labels:
+    app: prime_number_system
+    tier: prime_number_system
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: prime_number_system
+      run: prime-number-system
+  template:
+    metadata:
+      labels:
+        tier: prime_number_system
+        run: prime-number-system
+    spec:
+      containers:
+      - name: prime_number_system
+        image: prime-number-system
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_ID
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.uid
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: POD_PORT
+            value: "8080"
+          - name : APP_NAME
+            value: "PRIME_NUMBER_SYSTEM"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prime-number-system-service
+  labels:
+    app: prime_number_system
+spec:
+  type: NodePort
+  selector:
+    run: docker-gs-ping
+  ports:
+    - nodePort: 30163
+      port: 8080 
+      targetPort: 8080
