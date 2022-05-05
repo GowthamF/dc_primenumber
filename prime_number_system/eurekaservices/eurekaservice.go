@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"time"
 
-	"dc_assignment.com/m/v2/models"
+	"dc_assignment.com/prime_number/v2/models"
 	"github.com/carlescere/scheduler"
 )
 

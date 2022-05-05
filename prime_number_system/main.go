@@ -4,27 +4,23 @@ import (
 	"flag"
 	"fmt"
 	"math/rand"
-	"net"
 	"strconv"
 	"time"
 
-	"dc_assignment.com/m/v2/controllers"
-	"dc_assignment.com/m/v2/eurekaservices"
-	"dc_assignment.com/m/v2/models"
-	"dc_assignment.com/m/v2/queue"
-	"dc_assignment.com/m/v2/routes"
+	"dc_assignment.com/prime_number/v2/controllers"
+	"dc_assignment.com/prime_number/v2/eurekaservices"
+	"dc_assignment.com/prime_number/v2/models"
+	"dc_assignment.com/prime_number/v2/routes"
 )
 
 var (
-	nodeId = flag.String("nodeid", "", "ID")
+	nodeId            = flag.String("nodeid", "", "ID")
+	appPortNumber     = flag.String("appPortNumber", "8080", "App Port Number")
+	sideCarPortNumber = flag.String("sideCarPortNumber", "0", "Sidecar Port Number")
 )
 
 func main() {
-	listener, err := net.Listen("tcp", ":0")
-	if err != nil {
-		panic(err)
-	}
-	portNumber := listener.Addr().(*net.TCPAddr).Port
+
 	flag.Parse()
 	rand.Seed(time.Now().UnixNano())
 	currentTime := fmt.Sprint(time.Now().UnixMilli())
@@ -33,12 +29,12 @@ func main() {
 
 	hostName := "PRIMENUMBER"
 	ipAddress := "localhost"
-	port := portNumber
+	port, _ := strconv.ParseInt(*appPortNumber, 0, 64)
 	status := "UP"
 	enabledPort := "true"
-	healthCheckUrl := "http://" + ipAddress + ":" + strconv.Itoa(port) + "/healthcheck"
-	statusCheckUrl := "http://" + ipAddress + ":" + strconv.Itoa(port) + "/status"
-	homePageUrl := "http://" + ipAddress + ":" + strconv.Itoa(port)
+	healthCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 16) + "/healthcheck"
+	statusCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 16) + "/status"
+	homePageUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 16)
 	class := "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo"
 	name := "MyOwn"
 	ins := &models.InstanceModel{
@@ -61,11 +57,11 @@ func main() {
 	}
 
 	eurekaservices.RegisterInstance(*nodeId, ins)
-	go queue.ReceiveMessage(queue.MasterElectionMessage)
+	// go queue.ReceiveMessage(queue.MasterElectionMessage)
 	go startElection(id, *nodeId)
 	go eurekaservices.UpdateHeartBeat(*nodeId, id)
-	r := routes.SetupRouter(id)
-	r.RunListener(listener)
+	r := routes.SetupRouter(id, *sideCarPortNumber)
+	r.Run(":" + *appPortNumber)
 }
 
 func startElection(id string, app string) {

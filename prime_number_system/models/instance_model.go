@@ -14,7 +14,7 @@ type InstanceModel struct {
 }
 
 type PortModel struct {
-	PortNumber *int    `json:"$"`
+	PortNumber *int64  `json:"$"`
 	Enabled    *string `json:"@enabled"`
 }
 

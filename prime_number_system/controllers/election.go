@@ -7,9 +7,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"dc_assignment.com/m/v2/eurekaservices"
-	"dc_assignment.com/m/v2/models"
-	"dc_assignment.com/m/v2/queue"
+	"dc_assignment.com/prime_number/v2/eurekaservices"
+	"dc_assignment.com/prime_number/v2/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -52,7 +51,7 @@ func GetHigherInstanceIds(myId string, appName string) {
 		SendStartElectionRequest(urlToNotify)
 	} else {
 		log.Println(myId, " I am the Leader")
-		go queue.SendMessage(queue.MasterElectionMessage, myId+" is the Leader")
+		// go queue.SendMessage(queue.MasterElectionMessage, myId+" is the Leader")
 		for _, instance := range *instances.Application.Instance {
 			if instance != nil {
 				insId, _ := strconv.ParseInt(*instance.InstanceId, 0, 64)
