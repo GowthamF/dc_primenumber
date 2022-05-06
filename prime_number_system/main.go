@@ -60,7 +60,7 @@ func main() {
 	// go queue.ReceiveMessage(queue.MasterElectionMessage)
 	go startElection(id, *nodeId)
 	go eurekaservices.UpdateHeartBeat(*nodeId, id)
-	r := routes.SetupRouter(id, *sideCarPortNumber)
+	r := routes.SetupRouter(id)
 	r.Run(":" + *appPortNumber)
 }
 

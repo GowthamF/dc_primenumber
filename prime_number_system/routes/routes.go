@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter(instanceId string, sideCarPortNumber string) *gin.Engine {
+func SetupRouter(instanceId string) *gin.Engine {
 	routeEngine := gin.Default()
 	routeEngine.GET("/", func(c *gin.Context) {
 		c.Data(http.StatusOK, "text/html; charset=utf-8", []byte("<div><h1>Welcome to Prime Number Distributed Sytem.</h1><h2>Everything is fine...</h2><h3>Made in &#128151; with Go </h3></div>"))
@@ -15,7 +15,6 @@ func SetupRouter(instanceId string, sideCarPortNumber string) *gin.Engine {
 
 	routeEngine.Use(func(ctx *gin.Context) {
 		ctx.Set("instanceId", instanceId)
-		ctx.Set("sideCarPortNumber", sideCarPortNumber)
 		ctx.Next()
 	})
 
