@@ -6,23 +6,23 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"strconv"
 
 	"dc_assignment.com/sidecar/v2/sidecarroutes"
 	"github.com/gin-gonic/gin"
 )
 
 var (
-	appPortNumber     = flag.Int("appPortNumber", 8080, "App Port Number")
-	sideCarPortNumber = flag.Int("sideCarPortNumber", 8081, "Sidecar Port Number")
+	appPortNumber     = flag.String("appportnumber", "", "App Port Number")
+	sideCarPortNumber = flag.String("sidecarportnumber", "", "Sidecar Port Number")
 )
 
 func main() {
-	r := sidecarroutes.SetupRouter(strconv.Itoa(*appPortNumber))
+	flag.Parse()
+	r := sidecarroutes.SetupRouter()
 	r.GET("/:path", func(c *gin.Context) {
 		// step 1: resolve proxy address, change scheme and host in requets
 		req := c.Request
-		proxy, err := url.Parse("http://localhost:" + strconv.Itoa(*appPortNumber))
+		proxy, err := url.Parse("http://localhost:" + *appPortNumber)
 		if err != nil {
 			log.Printf("error in parse addr: %v", err)
 			c.String(500, "error")
@@ -50,5 +50,5 @@ func main() {
 		bufio.NewReader(resp.Body).WriteTo(c.Writer)
 		return
 	})
-	r.Run(":" + strconv.Itoa(*sideCarPortNumber))
+	r.Run(":" + *sideCarPortNumber)
 }

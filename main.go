@@ -30,9 +30,12 @@ func main() {
 		currentTime := fmt.Sprint(time.Now().UnixMilli())
 		randomNumber := fmt.Sprint(rand.Int31n(10000))
 		id := currentTime + randomNumber
+		fmt.Println(appPort, sideCarPort)
 
 		cmd := exec.Command("bash", "app.sh", id, strconv.Itoa(appPort), strconv.Itoa(sideCarPort))
+		cmd1 := exec.Command("bash", "sidecar.sh", strconv.Itoa(appPort), strconv.Itoa(sideCarPort))
 
 		go cmd.Run()
+		go cmd1.Run()
 	}
 }

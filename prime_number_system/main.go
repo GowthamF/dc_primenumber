@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"math/rand"
+	"os/exec"
 	"strconv"
 	"time"
 
@@ -15,8 +16,8 @@ import (
 
 var (
 	nodeId            = flag.String("nodeid", "", "ID")
-	appPortNumber     = flag.String("appPortNumber", "8080", "App Port Number")
-	sideCarPortNumber = flag.String("sideCarPortNumber", "0", "Sidecar Port Number")
+	appPortNumber     = flag.String("portnumber", "8080", "App Port Number")
+	sideCarPortNumber = flag.String("sidecarportnumber", "0", "Sidecar Port Number")
 )
 
 func main() {
@@ -32,9 +33,9 @@ func main() {
 	port, _ := strconv.ParseInt(*appPortNumber, 0, 64)
 	status := "UP"
 	enabledPort := "true"
-	healthCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 16) + "/healthcheck"
-	statusCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 16) + "/status"
-	homePageUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 16)
+	healthCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 10) + "/healthcheck"
+	statusCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 10) + "/status"
+	homePageUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 10)
 	class := "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo"
 	name := "MyOwn"
 	ins := &models.InstanceModel{
@@ -57,9 +58,9 @@ func main() {
 	}
 
 	eurekaservices.RegisterInstance(*nodeId, ins)
-	// go queue.ReceiveMessage(queue.MasterElectionMessage)
 	go startElection(id, *nodeId)
 	go eurekaservices.UpdateHeartBeat(*nodeId, id)
+	// spawnProcess()
 	r := routes.SetupRouter(id)
 	r.Run(":" + *appPortNumber)
 }
@@ -68,4 +69,10 @@ func startElection(id string, app string) {
 	durationOfTime := time.Duration(30) * time.Second
 	time.Sleep(durationOfTime)
 	controllers.GetHigherInstanceIds(id, app)
+}
+
+func spawnProcess() {
+	cmd := exec.Command("bash", "app.sh", *appPortNumber, *sideCarPortNumber)
+
+	go cmd.Run()
 }
