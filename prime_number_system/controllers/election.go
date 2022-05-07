@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"dc_assignment.com/prime_number/v2/eurekaservices"
@@ -32,33 +33,41 @@ func RequestElection(c *gin.Context) {
 }
 
 func GetHigherInstanceIds(myId string) {
-	eurekaservices.GetNodes()
-	nodes := eurekaservices.GetNodes()
-	var urlToNotify string = ""
-	var selectedNode *models.ApplicationModel
-	for _, instance := range nodes {
-		if instance != nil {
-			if *instance.Instance[0].Status == models.UpStatus {
-				nodeId, _ := strconv.ParseInt(*instance.Name, 0, 64)
-				myNodeId, _ := strconv.ParseInt(myId, 0, 64)
-
-				if myNodeId < nodeId {
-					url := SendElectionRequest(instance.Instance[0].HomePageUrl, &myId)
-					if urlToNotify == "" && selectedNode != nil {
-						urlToNotify = url
-						selectedNode = instance
+	fmt.Println("Made it here", myId)
+	hasLockFileCreated := *createElectionLockFile()
+	fmt.Println(hasLockFileCreated, myId)
+	if hasLockFileCreated {
+		fmt.Println("Made it here 1", myId)
+		eurekaservices.GetNodes()
+		nodes := eurekaservices.GetNodes()
+		var urlToNotify string = ""
+		var selectedNode *models.ApplicationModel
+		for _, instance := range nodes {
+			if instance != nil {
+				if *instance.Instance[0].Status == models.UpStatus {
+					nodeId, _ := strconv.ParseInt(*instance.Name, 0, 64)
+					myNodeId, _ := strconv.ParseInt(myId, 0, 64)
+					fmt.Println(myNodeId)
+					fmt.Println(nodeId)
+					if myNodeId < nodeId {
+						url := SendElectionRequest(instance.Instance[0].HomePageUrl, &myId)
+						if urlToNotify == "" && selectedNode == nil {
+							urlToNotify = url
+							selectedNode = instance
+						}
 					}
 				}
-			}
 
+			}
 		}
-	}
-	if urlToNotify != "" {
-		SendStartElectionRequest(urlToNotify)
-	} else {
-		sidecar.Log(myId + "I am the leader")
-		// go queue.SendMessage(queue.MasterElectionMessage, myId+" is the Leader")
-		eurekaservices.UpdateRole(myId, models.MasterNode)
+		if urlToNotify != "" {
+			SendStartElectionRequest(urlToNotify)
+		} else {
+			removeElectionLockFile()
+			log.Println(myId, "I am the leader")
+			sidecar.Log(myId + "I am the leader")
+			eurekaservices.UpdateRole(myId, models.MasterNode)
+		}
 	}
 
 }
@@ -90,10 +99,44 @@ func SendElectionRequest(url *string, myAppId *string) string {
 			log.Println("Continue the election")
 
 		} else if resp.StatusCode == 406 {
+			removeElectionLockFile()
 			log.Println("Do not continue")
 			remoteUrl = *url
 		}
 	}
-
 	return remoteUrl
+}
+
+func createElectionLockFile() *bool {
+
+	// exitsig := make(chan os.Signal, 1)
+	// signal.Notify(exitsig, os.Interrupt)
+
+	var (
+		lockstate bool = false
+	)
+
+	if _, err := os.Stat("ms.lock"); err == nil {
+		return &lockstate
+
+	} else if os.IsNotExist(err) {
+		var file, err = os.Create("ms.lock")
+		if err != nil {
+			return &lockstate
+		}
+		file.Close()
+		lockstate = true
+	}
+
+	return &lockstate
+}
+
+func removeElectionLockFile() {
+	_, err := os.Stat("ms.lock")
+	if err == nil || os.IsExist(err) {
+		var err = os.Remove("ms.lock")
+		if err != nil {
+			fmt.Println("Error removing file: ", err)
+		}
+	}
 }
