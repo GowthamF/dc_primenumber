@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"math/rand"
-	"os/exec"
 	"strconv"
 	"time"
 
@@ -17,7 +16,7 @@ import (
 var (
 	nodeId            = flag.String("nodeid", "", "ID")
 	appPortNumber     = flag.String("portnumber", "8080", "App Port Number")
-	sideCarPortNumber = flag.String("sidecarportnumber", "0", "Sidecar Port Number")
+	sidecarPortNumber = flag.String("sidecarportnumber", "8081", "Sidecar Port Number")
 )
 
 func main() {
@@ -27,11 +26,11 @@ func main() {
 	currentTime := fmt.Sprint(time.Now().UnixMilli())
 	randomNumber := fmt.Sprint(rand.Int31n(10000))
 	id := currentTime + randomNumber
-
+	models.SidecarPortNumber = sidecarPortNumber
 	hostName := "PRIMENUMBER"
 	ipAddress := "localhost"
 	port, _ := strconv.ParseInt(*appPortNumber, 0, 64)
-	status := "UP"
+	status := models.UpStatus
 	enabledPort := "true"
 	healthCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 10) + "/healthcheck"
 	statusCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 10) + "/status"
@@ -58,21 +57,23 @@ func main() {
 	}
 
 	eurekaservices.RegisterInstance(*nodeId, ins)
-	go startElection(id, *nodeId)
+	go startElection(*nodeId)
 	go eurekaservices.UpdateHeartBeat(*nodeId, id)
-	// spawnProcess()
-	r := routes.SetupRouter(id)
+	r := routes.SetupRouter(*nodeId)
 	r.Run(":" + *appPortNumber)
 }
 
-func startElection(id string, app string) {
+func startElection(nodeId string) {
 	durationOfTime := time.Duration(30) * time.Second
 	time.Sleep(durationOfTime)
-	controllers.GetHigherInstanceIds(id, app)
+	controllers.GetHigherInstanceIds(nodeId)
 }
 
-func spawnProcess() {
-	cmd := exec.Command("bash", "app.sh", *appPortNumber, *sideCarPortNumber)
+// func spawnProcess() {
+// 	durationOfTime := time.Duration(10) * time.Second
+// 	time.Sleep(durationOfTime)
+// 	cmd := exec.Command("bash", "app.sh")
 
-	go cmd.Run()
-}
+// 	e := cmd.Run()
+// 	eurekaservices.L.Println(e)
+// }

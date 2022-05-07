@@ -9,19 +9,20 @@ import (
 
 	"dc_assignment.com/prime_number/v2/eurekaservices"
 	"dc_assignment.com/prime_number/v2/models"
+	"dc_assignment.com/prime_number/v2/sidecar"
 	"github.com/gin-gonic/gin"
 )
 
 func StartElection(c *gin.Context) {
-	instanceId := c.GetString("instanceId")
-	GetHigherInstanceIds(instanceId, models.PrimeNumberNode)
+	instanceId := c.GetString("nodeId")
+	GetHigherInstanceIds(instanceId)
 }
 
 func StopElection(c *gin.Context) {}
 
 func RequestElection(c *gin.Context) {
 	requestInstanceId, _ := strconv.ParseInt(c.Param("requestInstanceId"), 0, 64)
-	instanceId, _ := strconv.ParseInt(c.GetString("instanceId"), 0, 64)
+	instanceId, _ := strconv.ParseInt(c.GetString("nodeId"), 0, 64)
 	if instanceId < requestInstanceId {
 		c.Status(http.StatusOK)
 	} else {
@@ -30,56 +31,34 @@ func RequestElection(c *gin.Context) {
 
 }
 
-func GetHigherInstanceIds(myId string, appName string) {
-	instances := eurekaservices.GetInstances(appName)
+func GetHigherInstanceIds(myId string) {
+	eurekaservices.GetNodes()
+	nodes := eurekaservices.GetNodes()
 	var urlToNotify string = ""
-	for _, instance := range *instances.Application.Instance {
+	var selectedNode *models.ApplicationModel
+	for _, instance := range nodes {
 		if instance != nil {
-			insId, _ := strconv.ParseInt(*instance.InstanceId, 0, 64)
-			myAppId, _ := strconv.ParseInt(myId, 0, 64)
+			if *instance.Instance[0].Status == models.UpStatus {
+				nodeId, _ := strconv.ParseInt(*instance.Name, 0, 64)
+				myNodeId, _ := strconv.ParseInt(myId, 0, 64)
 
-			if myAppId < insId {
-				url := SendElectionRequest(instance.HomePageUrl, &myId)
-				fmt.Println(url)
-				if urlToNotify == "" {
-					urlToNotify = url
+				if myNodeId < nodeId {
+					url := SendElectionRequest(instance.Instance[0].HomePageUrl, &myId)
+					if urlToNotify == "" && selectedNode != nil {
+						urlToNotify = url
+						selectedNode = instance
+					}
 				}
 			}
+
 		}
 	}
 	if urlToNotify != "" {
 		SendStartElectionRequest(urlToNotify)
 	} else {
-		log.Println(myId, " I am the Leader")
+		sidecar.Log(myId + "I am the leader")
 		// go queue.SendMessage(queue.MasterElectionMessage, myId+" is the Leader")
-		for _, instance := range *instances.Application.Instance {
-			if instance != nil {
-				insId, _ := strconv.ParseInt(*instance.InstanceId, 0, 64)
-				myAppId, _ := strconv.ParseInt(myId, 0, 64)
-				if insId == myAppId {
-					app := models.MasterNode
-					ins := &models.InstanceModel{
-						InstanceId: instance.InstanceId,
-						HostName:   instance.HostName,
-						App:        &app,
-						IpAddress:  instance.IpAddress,
-						Status:     instance.Status,
-						Port: &models.PortModel{
-							PortNumber: instance.Port.PortNumber,
-							Enabled:    instance.Port.Enabled,
-						},
-						HealthCheckUrl: instance.HealthCheckUrl,
-						StatusPageUrl:  instance.StatusPageUrl,
-						HomePageUrl:    instance.HomePageUrl,
-						DataCenterInfo: &models.DataCenterInfoModel{
-							Class: instance.DataCenterInfo.Class,
-							Name:  instance.DataCenterInfo.Name,
-						},
-					}
-					eurekaservices.RegisterInstance(app, ins)
-				}
-			}
-		}
+		eurekaservices.UpdateRole(myId, models.MasterNode)
 	}
 
 }

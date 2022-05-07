@@ -3,30 +3,28 @@ package eurekaservices
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"runtime"
 	"time"
 
 	"dc_assignment.com/prime_number/v2/models"
+	"dc_assignment.com/prime_number/v2/sidecar"
 	"github.com/carlescere/scheduler"
 )
 
 func RegisterInstance(appName string, instance *models.InstanceModel) {
 	instanceJson := map[string]*models.InstanceModel{"instance": instance}
-	fmt.Println(instanceJson)
 	json_data, err := json.Marshal(instanceJson)
 	client := &http.Client{}
 	if err != nil {
-		log.Fatalln(err)
+		sidecar.Log(appName + err.Error())
 	}
 
 	req, err := http.NewRequest("POST", "http://localhost:8761/eureka/apps/"+appName, bytes.NewBuffer(json_data))
 
 	if err != nil {
-		log.Fatalln(err)
+		sidecar.Log(appName + err.Error())
 	}
 
 	req.Header.Add("Content-Type", "application/json")
@@ -34,16 +32,55 @@ func RegisterInstance(appName string, instance *models.InstanceModel) {
 	resp, err := client.Do(req)
 
 	if err != nil {
-		log.Println(err)
+		sidecar.Log(appName + err.Error())
 	}
 
 	if resp.StatusCode == 204 {
-		log.Println("Successfully Registered")
+		sidecar.Log(appName + " Successfully Registered")
 
 	} else {
-		log.Println(resp.StatusCode)
-		log.Println("Error during registering")
+		sidecar.Log("Error during registering")
 	}
+}
+
+func GetNodes() []*models.ApplicationModel {
+	client := &http.Client{}
+	apps := map[string]*models.NodesModel{}
+	var nodes []*models.ApplicationModel = []*models.ApplicationModel{}
+	req, err := http.NewRequest("GET", "http://localhost:8761/eureka/apps", bytes.NewBuffer([]byte{}))
+
+	if err != nil {
+		sidecar.Log(err.Error())
+	}
+
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Accept", "application/json")
+	resp, err := client.Do(req)
+
+	if err != nil {
+		sidecar.Log(err.Error())
+	}
+
+	if resp.StatusCode == 200 {
+		defer resp.Body.Close()
+		body, err := io.ReadAll(resp.Body)
+
+		if err != nil {
+			sidecar.Log(err.Error())
+		}
+
+		err = json.Unmarshal(body, &apps)
+		nodes = apps["applications"].Nodes
+
+		if err != nil {
+			sidecar.Log(err.Error())
+		}
+
+	} else {
+		sidecar.Log("Error during retrieving")
+	}
+
+	return nodes
 }
 
 func GetInstances(appName string) *models.InstancesModel {
@@ -52,7 +89,7 @@ func GetInstances(appName string) *models.InstancesModel {
 	req, err := http.NewRequest("GET", "http://localhost:8761/eureka/apps/"+appName, bytes.NewBuffer([]byte{}))
 
 	if err != nil {
-		log.Fatalln(err)
+		sidecar.Log(appName + err.Error())
 	}
 
 	req.Header.Add("Content-Type", "application/json")
@@ -60,7 +97,7 @@ func GetInstances(appName string) *models.InstancesModel {
 	resp, err := client.Do(req)
 
 	if err != nil {
-		log.Fatalln(err)
+		sidecar.Log(appName + err.Error())
 	}
 
 	if resp.StatusCode == 200 {
@@ -68,17 +105,17 @@ func GetInstances(appName string) *models.InstancesModel {
 		body, err := io.ReadAll(resp.Body)
 
 		if err != nil {
-			log.Fatalln(err)
+			sidecar.Log(appName + err.Error())
 		}
 
 		err = json.Unmarshal(body, &apps)
 
 		if err != nil {
-			log.Fatalln(err)
+			sidecar.Log(appName + err.Error())
 		}
 
 	} else {
-		log.Println("Error during retrieving")
+		sidecar.Log(appName + " Error during retrieving")
 	}
 	return apps
 }
@@ -90,19 +127,19 @@ func UpdateHeartBeat(appName string, instanceId string) {
 		req, err := http.NewRequest("PUT", "http://localhost:8761/eureka/apps/"+appName+"/"+instanceId, bytes.NewBuffer([]byte{}))
 
 		if err != nil {
-			log.Fatalln(err)
+			sidecar.Log(appName + ":" + instanceId + err.Error())
 		}
 		resp, err := client.Do(req)
 
 		if err != nil {
-			log.Fatalln(err)
+			sidecar.Log(appName + ":" + instanceId + err.Error())
 		}
 
 		if resp.StatusCode == 200 {
-			log.Println("Heart beat updated")
+			sidecar.Log(appName + ":" + instanceId + " Heart beat updated")
 
 		} else {
-			log.Println("Heart beat failed")
+			sidecar.Log(appName + ":" + instanceId + " Heart beat failed")
 		}
 	}
 
@@ -116,7 +153,7 @@ func GetInstanceIds(app string) []*string {
 	var instanceIds = []*string{}
 	instances := GetInstances(app)
 	if instances != nil {
-		for _, instance := range *instances.Application.Instance {
+		for _, instance := range instances.Application.Instance {
 			if instance != nil {
 				instanceIds = append(instanceIds, instance.InstanceId)
 			}
@@ -124,4 +161,43 @@ func GetInstanceIds(app string) []*string {
 	}
 
 	return instanceIds
+}
+
+func UpdateRole(app string, role string) {
+	instanceIds := GetInstanceIds(app)
+	client := &http.Client{}
+
+	updateRole := func(instanceId string) {
+		req, err := http.NewRequest("PUT", "http://localhost:8761/eureka/apps/"+app+"/"+instanceId+"/metadata?role="+role, bytes.NewBuffer([]byte{}))
+
+		if err != nil {
+			sidecar.Log(app + ":" + instanceId + err.Error())
+		}
+		resp, err := client.Do(req)
+
+		if err != nil {
+			sidecar.Log(app + ":" + instanceId + err.Error())
+		}
+
+		if resp.StatusCode == 200 {
+			sidecar.Log(app + ":" + instanceId + " Role updated")
+
+		} else {
+			sidecar.Log(app + ":" + instanceId + " Role update failed")
+		}
+	}
+
+	for _, instanceId := range instanceIds {
+		if instanceId != nil {
+			go updateRole(*instanceId)
+		}
+	}
+}
+
+func GetNodesByRole(role string) {
+
+}
+
+func ShutdownNode(appName string) {
+
 }

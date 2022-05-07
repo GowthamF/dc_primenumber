@@ -19,6 +19,7 @@ var (
 func main() {
 	flag.Parse()
 	r := sidecarroutes.SetupRouter()
+
 	r.GET("/:path", func(c *gin.Context) {
 		// step 1: resolve proxy address, change scheme and host in requets
 		req := c.Request

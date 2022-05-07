@@ -28,6 +28,10 @@ type InstancesModel struct {
 }
 
 type ApplicationModel struct {
-	Name     *string           `json:"name"`
-	Instance *[]*InstanceModel `json:"instance"`
+	Name     *string          `json:"name"`
+	Instance []*InstanceModel `json:"instance"`
+}
+
+type NodesModel struct {
+	Nodes []*ApplicationModel `json:"application"`
 }
