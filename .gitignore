@@ -1,3 +1,4 @@
 /eurekaserver
-*.log
+/*.log
 *.pdf
+prime_number_sidecar/app.log

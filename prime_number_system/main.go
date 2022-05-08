@@ -64,7 +64,7 @@ func main() {
 	go nodemessage.ReceiveMessage(nodemessage.MasterElectionMessage)
 	go eurekaservices.UpdateHeartBeat(*nodeId, id)
 	r := routes.SetupRouter(*nodeId)
-	r.Run(":" + *appPortNumber)
+	r.Run("localhost:" + *appPortNumber)
 }
 
 func startElection(nodeId string) {

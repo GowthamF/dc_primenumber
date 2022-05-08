@@ -51,5 +51,5 @@ func main() {
 		bufio.NewReader(resp.Body).WriteTo(c.Writer)
 		return
 	})
-	r.Run(":" + *sideCarPortNumber)
+	r.Run("localhost:" + *sideCarPortNumber)
 }
