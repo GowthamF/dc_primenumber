@@ -10,3 +10,6 @@ var UpStatus = "UP"
 var DownStatus = "DOWN"
 
 var SidecarPortNumber *string
+
+var ElectionLock = "Election"
+var MasterLock = "Master"

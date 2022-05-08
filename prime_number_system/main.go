@@ -12,6 +12,7 @@ import (
 	"dc_assignment.com/prime_number/v2/models"
 	"dc_assignment.com/prime_number/v2/nodemessage"
 	"dc_assignment.com/prime_number/v2/routes"
+	"dc_assignment.com/prime_number/v2/sidecar"
 )
 
 var (
@@ -61,7 +62,17 @@ func main() {
 
 	eurekaservices.RegisterInstance(*nodeId, ins)
 	go startElection(*nodeId)
-	go nodemessage.ReceiveMessage(nodemessage.MasterElectionMessage)
+	ch1 := make(chan string)
+	ch2 := make(chan string)
+	go nodemessage.ReceiveMessage(ch1, nodemessage.MasterElectionMessage)
+	go nodemessage.ReceiveMessage(ch2, nodemessage.NewNodeSpawned)
+	go func() {
+		sidecar.Log(<-ch1)
+	}()
+	go func() {
+		sidecar.Log(<-ch2)
+	}()
+
 	go eurekaservices.UpdateHeartBeat(*nodeId, id)
 	r := routes.SetupRouter(*nodeId)
 	r.Run("localhost:" + *appPortNumber)

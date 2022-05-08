@@ -34,6 +34,12 @@ func RequestElection(c *gin.Context) {
 }
 
 func GetHigherInstanceIds(myId string) {
+	hasMasterLockFileCreated := *CheckIfLockFileExist(models.MasterLock)
+
+	if hasMasterLockFileCreated {
+		return
+	}
+
 	masterNodes := eurekaservices.GetNodesByRole(models.MasterNode)
 
 	if len(masterNodes) > 0 {
@@ -44,10 +50,13 @@ func GetHigherInstanceIds(myId string) {
 
 		if isMasterNodeRunning {
 			return
+		} else {
+			RemoveElectionLockFile(models.MasterLock)
 		}
 	}
-	hasLockFileCreated := *createElectionLockFile()
+	hasLockFileCreated := *CreateElectionLockFile(models.ElectionLock)
 	if hasLockFileCreated {
+		sidecar.Log(myId + " Starts the Election")
 		nodes := eurekaservices.GetNodes()
 		var urlToNotify string = ""
 		var selectedNode *models.ApplicationModel
@@ -72,16 +81,22 @@ func GetHigherInstanceIds(myId string) {
 		if urlToNotify != "" {
 			SendStartElectionRequest(urlToNotify)
 		} else {
-			removeElectionLockFile()
-			go nodemessage.SendMessage(nodemessage.MasterElectionMessage, myId+" is the Leader")
-			go sidecar.Log(myId + " I am the leader")
+			RemoveElectionLockFile(models.ElectionLock)
+			nodemessage.SendMessage(nodemessage.MasterElectionMessage, myId+" is the Leader")
+			sidecar.Log(myId + " I am the leader")
+			CreateElectionLockFile(models.MasterLock)
 			go eurekaservices.UpdateRole(myId, models.MasterNode)
-			go assignRoles(&myId)
+			ch := make(chan bool)
+			go assignRoles(ch, &myId)
+			go func() {
+				<-ch
+				sidecar.Log("All Roles have been assigned")
+			}()
 		}
 	}
 }
 
-func assignRoles(masterNodeId *string) {
+func assignRoles(ch chan bool, masterNodeId *string) {
 	nodes := eurekaservices.GetNodes()
 	var acceptorNodeIds []*string = []*string{}
 	var learnerNodeIds []*string = []*string{}
@@ -99,6 +114,7 @@ func assignRoles(masterNodeId *string) {
 			}
 		}
 	}
+	ch <- true
 }
 
 func SendStartElectionRequest(url string) {
@@ -128,7 +144,7 @@ func SendElectionRequest(url *string, myAppId *string) string {
 			log.Println("Continue the election")
 
 		} else if resp.StatusCode == 406 {
-			removeElectionLockFile()
+			RemoveElectionLockFile(models.ElectionLock)
 			log.Println("Do not continue")
 			remoteUrl = *url
 		}
@@ -136,16 +152,16 @@ func SendElectionRequest(url *string, myAppId *string) string {
 	return remoteUrl
 }
 
-func createElectionLockFile() *bool {
+func CreateElectionLockFile(fileName string) *bool {
 	var (
 		lockstate bool = false
 	)
 
-	if _, err := os.Stat("ms.lock"); err == nil {
+	if _, err := os.Stat(fileName + ".lock"); err == nil {
 		return &lockstate
 
 	} else if os.IsNotExist(err) {
-		var file, err = os.Create("ms.lock")
+		var file, err = os.Create(fileName + ".lock")
 		if err != nil {
 			return &lockstate
 		}
@@ -156,12 +172,30 @@ func createElectionLockFile() *bool {
 	return &lockstate
 }
 
-func removeElectionLockFile() {
-	_, err := os.Stat("ms.lock")
+func RemoveElectionLockFile(fileName string) {
+	_, err := os.Stat(fileName + ".lock")
 	if err == nil || os.IsExist(err) {
-		var err = os.Remove("ms.lock")
+		var err = os.Remove(fileName + ".lock")
 		if err != nil {
 			fmt.Println("Error removing file: ", err)
 		}
 	}
+}
+
+func CheckIfLockFileExist(fileName string) *bool {
+	var (
+		lockstate bool = false
+	)
+
+	if _, err := os.Stat(fileName + ".lock"); err == nil {
+		return &lockstate
+
+	} else if os.IsNotExist(err) {
+		if err != nil {
+			return &lockstate
+		}
+		lockstate = true
+	}
+
+	return &lockstate
 }

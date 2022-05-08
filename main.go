@@ -15,7 +15,7 @@ import (
 func main() {
 	//Do the election based on nodeId not based on InstanceId
 
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 7; i++ {
 		listener, err := net.Listen("tcp", ":0")
 		if err != nil {
 			panic(err)

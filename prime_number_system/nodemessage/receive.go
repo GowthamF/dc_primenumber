@@ -12,7 +12,7 @@ func failOnError(err error, msg string) {
 	}
 }
 
-func ReceiveMessage(messageName string) {
+func ReceiveMessage(channel chan string, messageName string) {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
@@ -67,6 +67,7 @@ func ReceiveMessage(messageName string) {
 
 	go func() {
 		for d := range msgs {
+			channel <- string(d.Body)
 			log.Printf("Received a message: %s", d.Body)
 		}
 	}()

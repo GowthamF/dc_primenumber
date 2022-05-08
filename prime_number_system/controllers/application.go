@@ -4,11 +4,13 @@ import (
 	"os"
 
 	"dc_assignment.com/prime_number/v2/eurekaservices"
+	"dc_assignment.com/prime_number/v2/models"
 	"github.com/gin-gonic/gin"
 )
 
 func StopApplication(c *gin.Context) {
 	eurekaservices.ShutdownNode(c.GetString("nodeId"))
+	CreateElectionLockFile(models.MasterLock)
 	os.Exit(2)
 }
 

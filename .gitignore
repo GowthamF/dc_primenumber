@@ -2,3 +2,4 @@
 /*.log
 *.pdf
 prime_number_sidecar/app.log
+*.lock
