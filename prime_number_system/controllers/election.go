@@ -39,7 +39,7 @@ func GetHigherInstanceIds(myId string) {
 	if len(masterNodes) > 0 {
 		isMasterNodeRunning := false
 		for _, masterNode := range masterNodes {
-			isMasterNodeRunning = *eurekaservices.CheckIfNodeIsAlive(masterNode.Instance[0].Status)
+			isMasterNodeRunning = *eurekaservices.CheckIfNodeIsAlive(masterNode.Instance[0].StatusPageUrl)
 		}
 
 		if isMasterNodeRunning {

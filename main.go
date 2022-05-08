@@ -9,10 +9,13 @@ import (
 	"time"
 )
 
+// taskkill /IM main.exe /F
+// docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.9-management
+
 func main() {
 	//Do the election based on nodeId not based on InstanceId
 
-	for i := 0; i < 2; i++ {
+	for i := 0; i < 5; i++ {
 		listener, err := net.Listen("tcp", ":0")
 		if err != nil {
 			panic(err)
