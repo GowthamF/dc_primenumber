@@ -18,9 +18,7 @@ func SetupRouter(nodeId string) *gin.Engine {
 		ctx.Next()
 	})
 
-	routeEngine.GET("/status", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, "Running")
-	})
+	routeEngine.GET("/status", controllers.Status)
 
 	routeEngine.GET("/healthcheck", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, "Running")

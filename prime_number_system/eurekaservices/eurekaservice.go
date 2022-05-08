@@ -3,10 +3,10 @@ package eurekaservices
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"runtime"
-	"time"
 
 	"dc_assignment.com/prime_number/v2/models"
 	"dc_assignment.com/prime_number/v2/sidecar"
@@ -148,8 +148,8 @@ func UpdateHeartBeat(appName string, instanceId string) {
 }
 
 func GetInstanceIds(app string) []*string {
-	durationOfTime := time.Duration(30) * time.Second
-	time.Sleep(durationOfTime)
+	// durationOfTime := time.Duration(30) * time.Second
+	// time.Sleep(durationOfTime)
 	var instanceIds = []*string{}
 	instances := GetInstances(app)
 	if instances != nil {
@@ -194,10 +194,65 @@ func UpdateRole(app string, role string) {
 	}
 }
 
-func GetNodesByRole(role string) {
+func GetNodesByRole(role string) []*models.ApplicationModel {
+	nodes := GetNodes()
+	var nodesByRoles []*models.ApplicationModel = []*models.ApplicationModel{}
+	for _, node := range nodes {
+		nodeRole := node.Instance[0].MetaData.Role
+		if *nodeRole == role {
+			nodesByRoles = append(nodesByRoles, node)
+		}
+	}
 
+	return nodesByRoles
 }
 
 func ShutdownNode(appName string) {
+	instances := GetInstanceIds(appName)
 
+	client := &http.Client{}
+	deleteIntance := func(instanceId string) {
+		req, err := http.NewRequest("DELETE", "http://localhost:8761/eureka/apps/"+appName+"/"+instanceId, bytes.NewBuffer([]byte{}))
+
+		if err != nil {
+			fmt.Println(err)
+			sidecar.Log(appName + ":" + instanceId + err.Error())
+		}
+		resp, err := client.Do(req)
+
+		if err != nil {
+			fmt.Println(err)
+			sidecar.Log(appName + ":" + instanceId + err.Error())
+		}
+
+		if resp.StatusCode == 200 {
+			fmt.Println("DELETED")
+			sidecar.Log(appName + ":" + instanceId + " Deleted")
+
+		} else {
+			fmt.Println("FAILED")
+			sidecar.Log(appName + ":" + instanceId + " Deleting failed")
+		}
+	}
+
+	for _, instanceId := range instances {
+		if instanceId != nil {
+			go deleteIntance(*instanceId)
+		}
+	}
+}
+
+func CheckIfNodeIsAlive(nodeUrl *string) *bool {
+	resp, err := http.Get(*nodeUrl)
+	var isRunning bool = true
+	if err != nil {
+		isRunning = false
+		sidecar.Log(*nodeUrl + ": " + err.Error())
+	} else {
+		if resp.StatusCode == 200 {
+			isRunning = true
+			sidecar.Log(*nodeUrl + ": Running")
+		}
+	}
+	return &isRunning
 }

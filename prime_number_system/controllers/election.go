@@ -10,6 +10,7 @@ import (
 
 	"dc_assignment.com/prime_number/v2/eurekaservices"
 	"dc_assignment.com/prime_number/v2/models"
+	"dc_assignment.com/prime_number/v2/nodemessage"
 	"dc_assignment.com/prime_number/v2/sidecar"
 	"github.com/gin-gonic/gin"
 )
@@ -33,12 +34,20 @@ func RequestElection(c *gin.Context) {
 }
 
 func GetHigherInstanceIds(myId string) {
-	fmt.Println("Made it here", myId)
+	masterNodes := eurekaservices.GetNodesByRole(models.MasterNode)
+
+	if len(masterNodes) > 0 {
+		isMasterNodeRunning := false
+		for _, masterNode := range masterNodes {
+			isMasterNodeRunning = *eurekaservices.CheckIfNodeIsAlive(masterNode.Instance[0].Status)
+		}
+
+		if isMasterNodeRunning {
+			return
+		}
+	}
 	hasLockFileCreated := *createElectionLockFile()
-	fmt.Println(hasLockFileCreated, myId)
 	if hasLockFileCreated {
-		fmt.Println("Made it here 1", myId)
-		eurekaservices.GetNodes()
 		nodes := eurekaservices.GetNodes()
 		var urlToNotify string = ""
 		var selectedNode *models.ApplicationModel
@@ -64,12 +73,32 @@ func GetHigherInstanceIds(myId string) {
 			SendStartElectionRequest(urlToNotify)
 		} else {
 			removeElectionLockFile()
-			log.Println(myId, "I am the leader")
-			sidecar.Log(myId + "I am the leader")
-			eurekaservices.UpdateRole(myId, models.MasterNode)
+			go nodemessage.SendMessage(nodemessage.MasterElectionMessage, myId+" is the Leader")
+			go sidecar.Log(myId + " I am the leader")
+			go eurekaservices.UpdateRole(myId, models.MasterNode)
+			go assignRoles(&myId)
 		}
 	}
+}
 
+func assignRoles(masterNodeId *string) {
+	nodes := eurekaservices.GetNodes()
+	var acceptorNodeIds []*string = []*string{}
+	var learnerNodeIds []*string = []*string{}
+
+	for _, node := range nodes {
+		if *node.Name != *masterNodeId {
+			if len(acceptorNodeIds) < 2 {
+				acceptorNodeIds = append(acceptorNodeIds, node.Name)
+				go eurekaservices.UpdateRole(*node.Name, models.AcceptorNode)
+			} else if len(learnerNodeIds) < 1 {
+				learnerNodeIds = append(learnerNodeIds, node.Name)
+				go eurekaservices.UpdateRole(*node.Name, models.LearnerNode)
+			} else {
+				go eurekaservices.UpdateRole(*node.Name, models.ProposerNode)
+			}
+		}
+	}
 }
 
 func SendStartElectionRequest(url string) {
@@ -108,10 +137,6 @@ func SendElectionRequest(url *string, myAppId *string) string {
 }
 
 func createElectionLockFile() *bool {
-
-	// exitsig := make(chan os.Signal, 1)
-	// signal.Notify(exitsig, os.Interrupt)
-
 	var (
 		lockstate bool = false
 	)

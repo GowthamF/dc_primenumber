@@ -11,11 +11,16 @@ type InstanceModel struct {
 	HomePageUrl    *string              `json:"homePageUrl"`
 	Port           *PortModel           `json:"port"`
 	DataCenterInfo *DataCenterInfoModel `json:"dataCenterInfo"`
+	MetaData       *MetaDataModel       `json:"metadata"`
 }
 
 type PortModel struct {
 	PortNumber *int64  `json:"$"`
 	Enabled    *string `json:"@enabled"`
+}
+
+type MetaDataModel struct {
+	Role *string `json:"role"`
 }
 
 type DataCenterInfoModel struct {

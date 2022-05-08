@@ -5,6 +5,8 @@ go 1.18
 require (
 	github.com/carlescere/scheduler v0.0.0-20170109141437-ee74d2f83d82
 	github.com/gin-gonic/gin v1.7.7
+	github.com/rabbitmq/amqp091-go v1.3.4
+	github.com/streadway/amqp v1.0.0
 )
 
 require (

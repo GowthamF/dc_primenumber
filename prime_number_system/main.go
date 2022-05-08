@@ -10,6 +10,7 @@ import (
 	"dc_assignment.com/prime_number/v2/controllers"
 	"dc_assignment.com/prime_number/v2/eurekaservices"
 	"dc_assignment.com/prime_number/v2/models"
+	"dc_assignment.com/prime_number/v2/nodemessage"
 	"dc_assignment.com/prime_number/v2/routes"
 )
 
@@ -20,7 +21,6 @@ var (
 )
 
 func main() {
-
 	flag.Parse()
 	rand.Seed(time.Now().UnixNano())
 	currentTime := fmt.Sprint(time.Now().UnixMilli())
@@ -33,7 +33,7 @@ func main() {
 	status := models.UpStatus
 	enabledPort := "true"
 	healthCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 10) + "/healthcheck"
-	statusCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 10) + "/status"
+	statusCheckUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 10) + "/status?nodeId=" + *nodeId
 	homePageUrl := "http://" + ipAddress + ":" + strconv.FormatInt(port, 10)
 	class := "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo"
 	name := "MyOwn"
@@ -54,10 +54,14 @@ func main() {
 			Class: &class,
 			Name:  &name,
 		},
+		MetaData: &models.MetaDataModel{
+			Role: &models.PrimeNumberNode,
+		},
 	}
 
 	eurekaservices.RegisterInstance(*nodeId, ins)
 	go startElection(*nodeId)
+	go nodemessage.ReceiveMessage(nodemessage.MasterElectionMessage)
 	go eurekaservices.UpdateHeartBeat(*nodeId, id)
 	r := routes.SetupRouter(*nodeId)
 	r.Run(":" + *appPortNumber)
