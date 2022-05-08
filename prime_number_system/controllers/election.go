@@ -7,13 +7,16 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
-	"dc_assignment.com/prime_number/v2/eurekaservices"
 	"dc_assignment.com/prime_number/v2/models"
 	"dc_assignment.com/prime_number/v2/nodemessage"
+	"dc_assignment.com/prime_number/v2/services"
 	"dc_assignment.com/prime_number/v2/sidecar"
 	"github.com/gin-gonic/gin"
 )
+
+var hasProcessStarted = false
 
 func StartElection(c *gin.Context) {
 	instanceId := c.GetString("nodeId")
@@ -35,17 +38,22 @@ func RequestElection(c *gin.Context) {
 
 func GetHigherInstanceIds(myId string) {
 	hasMasterLockFileCreated := *CheckIfLockFileExist(models.MasterLock)
+	hasElectionFileCreated := *CheckIfLockFileExist(models.ElectionLock)
+
+	if hasElectionFileCreated {
+		return
+	}
 
 	if hasMasterLockFileCreated {
 		return
 	}
 
-	masterNodes := eurekaservices.GetNodesByRole(models.MasterNode)
+	masterNodes := services.GetNodesByRole(models.MasterNode)
 
 	if len(masterNodes) > 0 {
 		isMasterNodeRunning := false
 		for _, masterNode := range masterNodes {
-			isMasterNodeRunning = *eurekaservices.CheckIfNodeIsAlive(masterNode.Instance[0].StatusPageUrl)
+			isMasterNodeRunning = *services.CheckIfNodeIsAlive(masterNode.Instance[0].StatusPageUrl)
 		}
 
 		if isMasterNodeRunning {
@@ -57,7 +65,7 @@ func GetHigherInstanceIds(myId string) {
 	hasLockFileCreated := *CreateElectionLockFile(models.ElectionLock)
 	if hasLockFileCreated {
 		sidecar.Log(myId + " Starts the Election")
-		nodes := eurekaservices.GetNodes()
+		nodes := services.GetNodes()
 		var urlToNotify string = ""
 		var selectedNode *models.ApplicationModel
 		for _, instance := range nodes {
@@ -78,43 +86,50 @@ func GetHigherInstanceIds(myId string) {
 
 			}
 		}
-		if urlToNotify != "" {
+		if urlToNotify != "" && selectedNode != nil {
 			SendStartElectionRequest(urlToNotify)
 		} else {
 			RemoveElectionLockFile(models.ElectionLock)
 			nodemessage.SendMessage(nodemessage.MasterElectionMessage, myId+" is the Leader")
 			sidecar.Log(myId + " I am the leader")
 			CreateElectionLockFile(models.MasterLock)
-			go eurekaservices.UpdateRole(myId, models.MasterNode)
-			ch := make(chan bool)
-			go assignRoles(ch, &myId)
-			go func() {
-				<-ch
-				sidecar.Log("All Roles have been assigned")
-			}()
+			go services.UpdateRole(myId, models.MasterNode)
+			go assignRoles(&myId)
+			durationOfTime := time.Duration(30) * time.Second
+			time.AfterFunc(durationOfTime, func() {
+				go sidecar.Log("All Roles have been assigned")
+				if !hasProcessStarted {
+					hasProcessStarted = true
+					services.StartProcess(54322)
+				}
+			})
+
 		}
 	}
 }
 
-func assignRoles(ch chan bool, masterNodeId *string) {
-	nodes := eurekaservices.GetNodes()
-	var acceptorNodeIds []*string = []*string{}
-	var learnerNodeIds []*string = []*string{}
+func assignRoles(masterNodeId *string) {
+	nodes := services.GetNodes()
+	var acceptorNodeIds []string = []string{}
+	var learnerNodeIds []string = []string{}
 
 	for _, node := range nodes {
 		if *node.Name != *masterNodeId {
+			isNodeRunning := *services.CheckIfNodeIsAlive(node.Instance[0].StatusPageUrl)
+			if !isNodeRunning {
+				continue
+			}
 			if len(acceptorNodeIds) < 2 {
-				acceptorNodeIds = append(acceptorNodeIds, node.Name)
-				go eurekaservices.UpdateRole(*node.Name, models.AcceptorNode)
+				acceptorNodeIds = append(acceptorNodeIds, *node.Name)
+				go services.UpdateRole(*node.Name, models.AcceptorNode)
 			} else if len(learnerNodeIds) < 1 {
-				learnerNodeIds = append(learnerNodeIds, node.Name)
-				go eurekaservices.UpdateRole(*node.Name, models.LearnerNode)
+				learnerNodeIds = append(learnerNodeIds, *node.Name)
+				go services.UpdateRole(*node.Name, models.LearnerNode)
 			} else {
-				go eurekaservices.UpdateRole(*node.Name, models.ProposerNode)
+				go services.UpdateRole(*node.Name, models.ProposerNode)
 			}
 		}
 	}
-	ch <- true
 }
 
 func SendStartElectionRequest(url string) {

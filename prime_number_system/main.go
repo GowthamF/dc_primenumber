@@ -8,10 +8,10 @@ import (
 	"time"
 
 	"dc_assignment.com/prime_number/v2/controllers"
-	"dc_assignment.com/prime_number/v2/eurekaservices"
 	"dc_assignment.com/prime_number/v2/models"
 	"dc_assignment.com/prime_number/v2/nodemessage"
 	"dc_assignment.com/prime_number/v2/routes"
+	"dc_assignment.com/prime_number/v2/services"
 	"dc_assignment.com/prime_number/v2/sidecar"
 )
 
@@ -25,7 +25,7 @@ func main() {
 	flag.Parse()
 	rand.Seed(time.Now().UnixNano())
 	currentTime := fmt.Sprint(time.Now().UnixMilli())
-	randomNumber := fmt.Sprint(rand.Int31n(10000))
+	randomNumber := fmt.Sprint(100 + rand.Intn(999-100))
 	id := currentTime + randomNumber
 	models.SidecarPortNumber = sidecarPortNumber
 	hostName := "PRIMENUMBER"
@@ -60,7 +60,7 @@ func main() {
 		},
 	}
 
-	eurekaservices.RegisterInstance(*nodeId, ins)
+	services.RegisterInstance(*nodeId, ins)
 	go startElection(*nodeId)
 	ch1 := make(chan string)
 	ch2 := make(chan string)
@@ -73,15 +73,15 @@ func main() {
 		sidecar.Log(<-ch2)
 	}()
 
-	go eurekaservices.UpdateHeartBeat(*nodeId, id)
+	go services.UpdateHeartBeat(*nodeId, id)
 	r := routes.SetupRouter(*nodeId)
 	r.Run("localhost:" + *appPortNumber)
 }
 
 func startElection(nodeId string) {
 	durationOfTime := time.Duration(30) * time.Second
-	time.Sleep(durationOfTime)
-	controllers.GetHigherInstanceIds(nodeId)
+	time.AfterFunc(durationOfTime, func() { controllers.GetHigherInstanceIds(nodeId) })
+
 }
 
 // func spawnProcess() {

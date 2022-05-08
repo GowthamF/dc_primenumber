@@ -1,4 +1,4 @@
-package eurekaservices
+package services
 
 import (
 	"bytes"

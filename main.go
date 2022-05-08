@@ -31,7 +31,7 @@ func main() {
 		listener1.Close()
 		rand.Seed(time.Now().UnixNano())
 		currentTime := fmt.Sprint(time.Now().UnixMilli())
-		randomNumber := fmt.Sprint(rand.Int31n(10000))
+		randomNumber := fmt.Sprint(100 + rand.Intn(999-100))
 		id := currentTime + randomNumber
 		fmt.Println(appPort, sideCarPort)
 
