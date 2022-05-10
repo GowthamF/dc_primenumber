@@ -100,7 +100,8 @@ func GetHigherInstanceIds(myId string) {
 				go sidecar.Log("All Roles have been assigned")
 				if !hasProcessStarted {
 					hasProcessStarted = true
-					services.StartProcess(54322)
+					go sidecar.Log("Process has been started")
+					go services.StartProcess(54322)
 				}
 			})
 
@@ -205,7 +206,7 @@ func CheckIfLockFileExist(fileName string) *bool {
 	if _, err := os.Stat(fileName + ".lock"); err == nil {
 		return &lockstate
 
-	} else if os.IsNotExist(err) {
+	} else if os.IsExist(err) {
 		if err != nil {
 			return &lockstate
 		}

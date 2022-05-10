@@ -10,6 +10,9 @@ var UpStatus = "UP"
 var DownStatus = "DOWN"
 
 var SidecarPortNumber *string
+var NodeId *string
 
 var ElectionLock = "Election"
 var MasterLock = "Master"
+var ValidPrimeNumberMessage = "PRIMENUMBER"
+var InvalidPrimeNumberMessage = "NOTAPRIMENUMBER"

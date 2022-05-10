@@ -28,6 +28,7 @@ func SetupRouter(nodeId string) *gin.Engine {
 	routeEngine.POST("/stopElection", controllers.StopElection)
 	routeEngine.GET("/requestElection/:requestInstanceId", controllers.RequestElection)
 	routeEngine.POST("/stopApplication", controllers.StopApplication)
+	routeEngine.POST("/checkPrimeNumber", controllers.CheckPrimeNumber)
 
 	return routeEngine
 }

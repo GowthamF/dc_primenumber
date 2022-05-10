@@ -28,6 +28,7 @@ func main() {
 	randomNumber := fmt.Sprint(100 + rand.Intn(999-100))
 	id := currentTime + randomNumber
 	models.SidecarPortNumber = sidecarPortNumber
+	models.NodeId = nodeId
 	hostName := "PRIMENUMBER"
 	ipAddress := "localhost"
 	port, _ := strconv.ParseInt(*appPortNumber, 0, 64)
