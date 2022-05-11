@@ -200,7 +200,9 @@ func GetNodesByRole(role string) []*models.ApplicationModel {
 	for _, node := range nodes {
 		nodeRole := node.Instance[0].MetaData.Role
 		if *nodeRole == role {
-			nodesByRoles = append(nodesByRoles, node)
+			if *CheckIfNodeIsAlive(node.Instance[0].StatusPageUrl) {
+				nodesByRoles = append(nodesByRoles, node)
+			}
 		}
 	}
 

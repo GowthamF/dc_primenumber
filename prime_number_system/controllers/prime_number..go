@@ -18,6 +18,8 @@ func CheckPrimeNumber(c *gin.Context) {
 	}
 
 	message := services.CheckIfPrimeNumber(primeNumber.NumberToCheck, primeNumber.StartRange, primeNumber.EndRange)
+	acceptor := services.GetNodesByRole(models.AcceptorNode)
+	services.NotifyAcceptorNode(acceptor[0].Instance[0].HomePageUrl, message)
 	go sidecar.Log("SENT TO ACCEPTOR")
 	c.JSON(http.StatusOK, message)
 }

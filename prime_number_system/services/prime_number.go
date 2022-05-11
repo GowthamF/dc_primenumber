@@ -34,15 +34,20 @@ func CheckIfPrimeNumber(numberToCheck int32, startRange int32, endRange int32) *
 
 func StartProcess(numberToCheck int32) {
 	nodes := GetNodesByRole(models.ProposerNode)
+	learnerNodes := GetNodesByRole(models.LearnerNode)
 
-	rangeToAssign := math.Round(float64(numberToCheck) / float64(len(nodes)))
+	if len(learnerNodes) > 0 {
+		NotifyLearnerNode(learnerNodes[0].Instance[0].HomePageUrl, int32(len(nodes)))
 
-	startRange := 0
+		rangeToAssign := math.Round(float64(numberToCheck) / float64(len(nodes)))
 
-	for _, node := range nodes {
-		endRange := startRange + int(rangeToAssign) - 1
-		go sendRequest(node.Instance[0].HomePageUrl, numberToCheck, int32(startRange), int32(endRange))
-		startRange = endRange + 1
+		startRange := 0
+
+		for _, node := range nodes {
+			endRange := startRange + int(rangeToAssign) - 1
+			go sendRequest(node.Instance[0].HomePageUrl, numberToCheck, int32(startRange), int32(endRange))
+			startRange = endRange + 1
+		}
 	}
 
 }

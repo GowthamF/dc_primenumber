@@ -11,6 +11,9 @@ var DownStatus = "DOWN"
 
 var SidecarPortNumber *string
 var NodeId *string
+var NumberOfProposers *int32
+var HasLeaderElected bool = false
+var MasterNodeId *string
 
 var ElectionLock = "Election"
 var MasterLock = "Master"

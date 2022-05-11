@@ -62,12 +62,13 @@ func main() {
 	}
 
 	services.RegisterInstance(*nodeId, ins)
-	go startElection(*nodeId)
 	ch1 := make(chan string)
 	ch2 := make(chan string)
 	go nodemessage.ReceiveMessage(ch1, nodemessage.MasterElectionMessage)
 	go nodemessage.ReceiveMessage(ch2, nodemessage.NewNodeSpawned)
 	go func() {
+		id := <-ch1
+		models.MasterNodeId = &id
 		sidecar.Log(<-ch1)
 	}()
 	go func() {
@@ -75,6 +76,7 @@ func main() {
 	}()
 
 	go services.UpdateHeartBeat(*nodeId, id)
+	go startElection(*nodeId)
 	r := routes.SetupRouter(*nodeId)
 	r.Run("localhost:" + *appPortNumber)
 }
@@ -82,7 +84,6 @@ func main() {
 func startElection(nodeId string) {
 	durationOfTime := time.Duration(30) * time.Second
 	time.AfterFunc(durationOfTime, func() { controllers.GetHigherInstanceIds(nodeId) })
-
 }
 
 // func spawnProcess() {

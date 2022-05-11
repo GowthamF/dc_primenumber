@@ -37,33 +37,32 @@ func RequestElection(c *gin.Context) {
 }
 
 func GetHigherInstanceIds(myId string) {
+
+	masterNodes := services.GetNodesByRole(models.MasterNode)
+
+	if len(masterNodes) == 0 {
+		RemoveElectionLockFile(models.MasterLock)
+	} else {
+		models.MasterNodeId = masterNodes[0].Name
+	}
+
 	hasMasterLockFileCreated := *CheckIfLockFileExist(models.MasterLock)
 	hasElectionFileCreated := *CheckIfLockFileExist(models.ElectionLock)
 
 	if hasElectionFileCreated {
 		return
 	}
-
 	if hasMasterLockFileCreated {
+		go assignRoles(models.MasterNodeId)
 		return
 	}
 
-	masterNodes := services.GetNodesByRole(models.MasterNode)
-
-	if len(masterNodes) > 0 {
-		isMasterNodeRunning := false
-		for _, masterNode := range masterNodes {
-			isMasterNodeRunning = *services.CheckIfNodeIsAlive(masterNode.Instance[0].StatusPageUrl)
-		}
-
-		if isMasterNodeRunning {
-			return
-		} else {
-			RemoveElectionLockFile(models.MasterLock)
-		}
-	}
 	hasLockFileCreated := *CreateElectionLockFile(models.ElectionLock)
 	if hasLockFileCreated {
+		hasMasterLockFileCreated := *CheckIfLockFileExist(models.MasterLock)
+		if hasMasterLockFileCreated {
+			return
+		}
 		sidecar.Log(myId + " Starts the Election")
 		nodes := services.GetNodes()
 		var urlToNotify string = ""
@@ -90,7 +89,7 @@ func GetHigherInstanceIds(myId string) {
 			SendStartElectionRequest(urlToNotify)
 		} else {
 			RemoveElectionLockFile(models.ElectionLock)
-			nodemessage.SendMessage(nodemessage.MasterElectionMessage, myId+" is the Leader")
+			nodemessage.SendMessage(nodemessage.MasterElectionMessage, myId)
 			sidecar.Log(myId + " I am the leader")
 			CreateElectionLockFile(models.MasterLock)
 			go services.UpdateRole(myId, models.MasterNode)
@@ -204,9 +203,9 @@ func CheckIfLockFileExist(fileName string) *bool {
 	)
 
 	if _, err := os.Stat(fileName + ".lock"); err == nil {
-		return &lockstate
+		lockstate = true
 
-	} else if os.IsExist(err) {
+	} else if os.IsNotExist(err) {
 		if err != nil {
 			return &lockstate
 		}

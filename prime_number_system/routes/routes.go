@@ -29,6 +29,8 @@ func SetupRouter(nodeId string) *gin.Engine {
 	routeEngine.GET("/requestElection/:requestInstanceId", controllers.RequestElection)
 	routeEngine.POST("/stopApplication", controllers.StopApplication)
 	routeEngine.POST("/checkPrimeNumber", controllers.CheckPrimeNumber)
+	routeEngine.POST("/proposersCount", controllers.ProposerCount)
+	routeEngine.POST("/notifyAcceptor", controllers.NotifyAcceptor)
 
 	return routeEngine
 }
