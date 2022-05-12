@@ -85,12 +85,3 @@ func startElection(nodeId string) {
 	durationOfTime := time.Duration(30) * time.Second
 	time.AfterFunc(durationOfTime, func() { controllers.GetHigherInstanceIds(nodeId) })
 }
-
-// func spawnProcess() {
-// 	durationOfTime := time.Duration(10) * time.Second
-// 	time.Sleep(durationOfTime)
-// 	cmd := exec.Command("bash", "app.sh")
-
-// 	e := cmd.Run()
-// 	eurekaservices.L.Println(e)
-// }

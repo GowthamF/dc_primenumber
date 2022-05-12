@@ -1,8 +1,11 @@
 package controllers
 
 import (
+	"net/http"
 	"os"
+	"os/exec"
 	"strconv"
+	"time"
 
 	"dc_assignment.com/prime_number/v2/models"
 	"dc_assignment.com/prime_number/v2/services"
@@ -12,7 +15,6 @@ import (
 
 func StopApplication(c *gin.Context) {
 	services.ShutdownNode(c.GetString("nodeId"))
-	RemoveElectionLockFile(models.MasterLock)
 	os.Exit(2)
 }
 
@@ -51,5 +53,67 @@ func NotifyAcceptor(c *gin.Context) {
 		go sidecar.Log(err.Error())
 		c.AbortWithError(500, err)
 	}
-	go sidecar.Log(*models.NodeId + " Notification from  Proposer" + strconv.FormatBool(*outcome.IsPrimeNumber))
+	go sidecar.Log(*models.NodeId + " Notification from  Proposer ")
+	learnerNode := services.GetNodesByRole(models.LearnerNode)
+	go sidecar.Log(strconv.Itoa(len(learnerNode)) + " Made it here")
+	if len(learnerNode) > 0 {
+		go sidecar.Log(" Made it here 1")
+		if !*outcome.IsPrimeNumber {
+			go sidecar.Log(" Made it here 2")
+			reminder := outcome.NumberToCheck % outcome.DivisibleNumber
+
+			if reminder == 0 {
+				go sidecar.Log(" Made it here 3")
+				go services.NotifyLearnerNodeProcess(learnerNode[0].Instance[0].HomePageUrl, outcome)
+			}
+		} else {
+			go sidecar.Log(" Made it here 4")
+			go services.NotifyLearnerNodeProcess(learnerNode[0].Instance[0].HomePageUrl, outcome)
+		}
+	}
+	go spawnProcess()
+	c.JSON(http.StatusOK, outcome)
+}
+
+var outcomes []*models.PrimeNumbersValidationMessage = make([]*models.PrimeNumbersValidationMessage, 0)
+
+func NotifyLearner(c *gin.Context) {
+	var outcome *models.PrimeNumbersValidationMessage
+
+	err := c.BindJSON(&outcome)
+
+	if err != nil {
+		go sidecar.Log(err.Error())
+		c.AbortWithError(500, err)
+	}
+	outcomes = append(outcomes, outcome)
+	go sidecar.Log(*models.NodeId + " Notification from  Acceptors ")
+	go sidecar.Log("Total Number of Messages" + strconv.Itoa(len(outcomes)))
+	isPrimeNumber := false
+	numberToCheck := 0
+
+	if len(outcomes) == int(*models.NumberOfProposers) {
+		for _, o := range outcomes {
+			if !*o.IsPrimeNumber {
+				go sidecar.Log(strconv.Itoa(int(o.NumberToCheck)) + " is not a Prime Number")
+				break
+			} else {
+				isPrimeNumber = *o.IsPrimeNumber
+				numberToCheck = int(o.NumberToCheck)
+			}
+		}
+
+		if isPrimeNumber {
+			go sidecar.Log(strconv.Itoa(numberToCheck) + " is a Prime Number")
+		}
+	}
+
+	c.JSON(http.StatusOK, outcomes)
+}
+
+func spawnProcess() {
+	durationOfTime := time.Duration(10) * time.Second
+	time.Sleep(durationOfTime)
+	cmd := exec.Command("bash", "app.sh")
+	cmd.Run()
 }

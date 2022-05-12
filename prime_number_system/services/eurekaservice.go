@@ -136,7 +136,7 @@ func UpdateHeartBeat(appName string, instanceId string) {
 		}
 
 		if resp.StatusCode == 200 {
-			sidecar.Log(appName + ":" + instanceId + " Heart beat updated")
+			// sidecar.Log(appName + ":" + instanceId + " Heart beat updated")
 
 		} else {
 			sidecar.Log(appName + ":" + instanceId + " Heart beat failed")

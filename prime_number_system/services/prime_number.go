@@ -1,11 +1,13 @@
 package services
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"log"
 	"math"
 	"net/http"
+	"os"
 	"strconv"
 
 	"dc_assignment.com/prime_number/v2/models"
@@ -32,11 +34,36 @@ func CheckIfPrimeNumber(numberToCheck int32, startRange int32, endRange int32) *
 	return message
 }
 
-func StartProcess(numberToCheck int32) {
+var NumbersToCheck []*int32 = []*int32{}
+
+func ReadFile() {
+	file, err := os.Open("prime_numbers.txt")
+
+	if err != nil {
+		return
+	}
+
+	defer func() {
+		if err = file.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	fscanner := bufio.NewScanner(file)
+	for fscanner.Scan() {
+		number, _ := strconv.ParseInt(fscanner.Text(), 0, 32)
+		numberToCheck := int32(number)
+		NumbersToCheck = append(NumbersToCheck, &numberToCheck)
+	}
+
+}
+
+func StartProcess() {
 	nodes := GetNodesByRole(models.ProposerNode)
 	learnerNodes := GetNodesByRole(models.LearnerNode)
 
 	if len(learnerNodes) > 0 {
+		numberToCheck := *NumbersToCheck[0]
 		NotifyLearnerNode(learnerNodes[0].Instance[0].HomePageUrl, int32(len(nodes)))
 
 		rangeToAssign := math.Round(float64(numberToCheck) / float64(len(nodes)))
@@ -47,6 +74,12 @@ func StartProcess(numberToCheck int32) {
 			endRange := startRange + int(rangeToAssign) - 1
 			go sendRequest(node.Instance[0].HomePageUrl, numberToCheck, int32(startRange), int32(endRange))
 			startRange = endRange + 1
+		}
+
+		for _, number := range NumbersToCheck {
+			if number != &numberToCheck {
+				NumbersToCheck = append(NumbersToCheck, number)
+			}
 		}
 	}
 

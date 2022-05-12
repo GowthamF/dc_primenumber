@@ -54,6 +54,15 @@ func GetHigherInstanceIds(myId string) {
 	}
 	if hasMasterLockFileCreated {
 		go assignRoles(models.MasterNodeId)
+		durationOfTime := time.Duration(60) * time.Second
+		time.AfterFunc(durationOfTime, func() {
+			go sidecar.Log("All Roles have been assigned")
+			if !hasProcessStarted {
+				hasProcessStarted = true
+				go sidecar.Log("Process has been started")
+				go services.StartProcess()
+			}
+		})
 		return
 	}
 
@@ -93,6 +102,7 @@ func GetHigherInstanceIds(myId string) {
 			sidecar.Log(myId + " I am the leader")
 			CreateElectionLockFile(models.MasterLock)
 			go services.UpdateRole(myId, models.MasterNode)
+			services.ReadFile()
 			go assignRoles(&myId)
 			durationOfTime := time.Duration(30) * time.Second
 			time.AfterFunc(durationOfTime, func() {
@@ -100,7 +110,7 @@ func GetHigherInstanceIds(myId string) {
 				if !hasProcessStarted {
 					hasProcessStarted = true
 					go sidecar.Log("Process has been started")
-					go services.StartProcess(54322)
+					go services.StartProcess()
 				}
 			})
 
