@@ -9,24 +9,29 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"sync"
 
 	"dc_assignment.com/prime_number/v2/models"
 	"dc_assignment.com/prime_number/v2/sidecar"
 )
 
 func CheckIfPrimeNumber(numberToCheck int32, startRange int32, endRange int32) *models.PrimeNumbersValidationMessage {
-	isPrimeNumber := true
+	isPrimeNumber := false
 	var message *models.PrimeNumbersValidationMessage = &models.PrimeNumbersValidationMessage{NumberToCheck: numberToCheck, IsPrimeNumber: &isPrimeNumber}
+	go sidecar.Log(*models.NodeId + " Start Range :" + strconv.FormatInt(int64(startRange), 10) + "End Range :" + strconv.FormatInt(int64(endRange), 10))
 	for i := startRange; i < endRange; i++ {
 		if numberToCheck != i && i != 0 && i != 1 {
 			reminder := numberToCheck % i
 
 			if reminder == 0 {
-				go sidecar.Log("Node ID " + *models.NodeId + " says" + strconv.FormatInt(int64(numberToCheck), 10) + " can be divided by" + strconv.FormatInt(int64(i), 10))
+				go sidecar.Log("Node ID " + *models.NodeId + " says " + strconv.FormatInt(int64(numberToCheck), 10) + " can be divided by" + strconv.FormatInt(int64(i), 10))
 				isPrimeNumber = false
 				message.IsPrimeNumber = &isPrimeNumber
 				message.DivisibleNumber = i
 				break
+			} else if reminder == 1 {
+				isPrimeNumber = true
+				message.IsPrimeNumber = &isPrimeNumber
 			}
 		}
 	}
@@ -34,7 +39,7 @@ func CheckIfPrimeNumber(numberToCheck int32, startRange int32, endRange int32) *
 	return message
 }
 
-var NumbersToCheck []*int32 = []*int32{}
+var NumbersToCheck []int32 = []int32{}
 
 func ReadFile() {
 	file, err := os.Open("prime_numbers.txt")
@@ -51,19 +56,49 @@ func ReadFile() {
 
 	fscanner := bufio.NewScanner(file)
 	for fscanner.Scan() {
+		log.Println(fscanner.Text())
 		number, _ := strconv.ParseInt(fscanner.Text(), 0, 32)
 		numberToCheck := int32(number)
-		NumbersToCheck = append(NumbersToCheck, &numberToCheck)
+		NumbersToCheck = append(NumbersToCheck, numberToCheck)
 	}
-
 }
 
-func StartProcess() {
+func WriteFile(numberToCheck int32) {
+	file, err := os.Create("prime_numbers.txt")
+	if err != nil {
+		log.Fatalf("failed creating file: %s", err)
+	}
+	datawriter := bufio.NewWriter(file)
+
+	for _, number := range NumbersToCheck {
+		if number != int32(numberToCheck) {
+			_, _ = datawriter.WriteString(strconv.Itoa(int(number)) + "\n")
+		}
+	}
+
+	datawriter.Flush()
+	file.Close()
+}
+
+var isWritten = false
+var mutex = &sync.Mutex{}
+
+func StartProcess(index int) {
+
+	if index == 4 {
+		go sidecar.Log("Everything is done")
+		return
+	}
+
+	ReadFile()
 	nodes := GetNodesByRole(models.ProposerNode)
 	learnerNodes := GetNodesByRole(models.LearnerNode)
-
+	go sidecar.Log("Made it here in Start Process 1")
 	if len(learnerNodes) > 0 {
-		numberToCheck := *NumbersToCheck[0]
+		go sidecar.Log("Made it here in Start Process 2")
+		numberToCheck := NumbersToCheck[index]
+		go sidecar.Log(strconv.Itoa(int(numberToCheck)))
+		log.Println(numberToCheck, "NUMBERS")
 		NotifyLearnerNode(learnerNodes[0].Instance[0].HomePageUrl, int32(len(nodes)))
 
 		rangeToAssign := math.Round(float64(numberToCheck) / float64(len(nodes)))
@@ -76,11 +111,9 @@ func StartProcess() {
 			startRange = endRange + 1
 		}
 
-		for _, number := range NumbersToCheck {
-			if number != &numberToCheck {
-				NumbersToCheck = append(NumbersToCheck, number)
-			}
-		}
+		// mutex.Lock()
+		// WriteFile(numberToCheck)
+		// mutex.Unlock()
 	}
 
 }

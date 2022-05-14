@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"net/http"
 
 	"dc_assignment.com/prime_number/v2/models"
@@ -16,7 +17,7 @@ func CheckPrimeNumber(c *gin.Context) {
 	if err != nil {
 		c.AbortWithError(500, err)
 	}
-
+	log.Println(primeNumber.NumberToCheck)
 	message := services.CheckIfPrimeNumber(primeNumber.NumberToCheck, primeNumber.StartRange, primeNumber.EndRange)
 	acceptor := services.GetNodesByRole(models.AcceptorNode)
 	services.NotifyAcceptorNode(acceptor[0].Instance[0].HomePageUrl, message)

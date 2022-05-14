@@ -19,6 +19,7 @@ var (
 	nodeId            = flag.String("nodeid", "", "ID")
 	appPortNumber     = flag.String("portnumber", "8080", "App Port Number")
 	sidecarPortNumber = flag.String("sidecarportnumber", "8081", "Sidecar Port Number")
+	isNNN             = flag.Bool("isnotify", false, "M")
 )
 
 func main() {
@@ -63,22 +64,24 @@ func main() {
 
 	services.RegisterInstance(*nodeId, ins)
 	ch1 := make(chan string)
-	ch2 := make(chan string)
+
 	go nodemessage.ReceiveMessage(ch1, nodemessage.MasterElectionMessage)
-	go nodemessage.ReceiveMessage(ch2, nodemessage.NewNodeSpawned)
+
 	go func() {
 		id := <-ch1
 		models.MasterNodeId = &id
 		sidecar.Log(<-ch1)
 	}()
-	go func() {
-		sidecar.Log(<-ch2)
-	}()
+
+	if *isNNN {
+		nodemessage.SendMessage(nodemessage.NewNodeSpawned, "TRUE")
+	}
 
 	go services.UpdateHeartBeat(*nodeId, id)
 	go startElection(*nodeId)
 	r := routes.SetupRouter(*nodeId)
 	r.Run("localhost:" + *appPortNumber)
+	// services.ReadFile()
 }
 
 func startElection(nodeId string) {

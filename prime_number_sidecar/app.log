@@ -1,44 +1,756 @@
-2022/05/12 21:18:50 log.go:23: 1652370525421165 Successfully Registered
-2022/05/12 21:18:50 log.go:23: 1652370525437803 Successfully Registered
-2022/05/12 21:18:50 log.go:23: 1652370525429287 Successfully Registered
-2022/05/12 21:18:50 log.go:23: 1652370525466113 Successfully Registered
-2022/05/12 21:18:50 log.go:23: 1652370525449424 Successfully Registered
-2022/05/12 21:19:20 log.go:23: 1652370525466113 Starts the Election
-2022/05/12 21:19:20 log.go:23: 1652370525437803 Starts the Election
-2022/05/12 21:19:20 log.go:23: 1652370525429287 Starts the Election
-2022/05/12 21:19:20 log.go:23: 1652370525449424 Starts the Election
-2022/05/12 21:19:20 log.go:23: 1652370525479941
-2022/05/12 21:19:20 log.go:23: 1652370525479941
-2022/05/12 21:19:20 log.go:23: 1652370525479941
-2022/05/12 21:19:20 log.go:23: 1652370525479941
-2022/05/12 21:19:20 log.go:23: 1652370525479941
-2022/05/12 21:19:51 log.go:23: Number of Proposers 2
-2022/05/12 21:19:51 log.go:23: Node ID 1652370525449424 says54322 can be divided by27161
-2022/05/12 21:19:51 log.go:23: Node ID 1652370525421165 says54322 can be divided by2
-2022/05/12 21:19:51 log.go:23: http://localhost:59758/status?nodeId=1652370525466113: Running
-2022/05/12 21:19:52 log.go:23: http://localhost:59758/status?nodeId=1652370525466113: Running
-2022/05/12 21:19:52 log.go:23: http://localhost:59754/status?nodeId=1652370525437803: Running
-2022/05/12 21:19:52 log.go:23: 1652370525466113 Notification from  Proposer 
-2022/05/12 21:19:52 log.go:23: http://localhost:59754/status?nodeId=1652370525437803: Running
-2022/05/12 21:19:52 log.go:23: 1652370525466113 Notification from  Proposer 
-2022/05/12 21:19:52 log.go:23: http://localhost:59752/status?nodeId=1652370525429287: Running
-2022/05/12 21:19:52 log.go:23: 1652370525449424 outcome has been sent to Acceptor
-2022/05/12 21:19:52 log.go:23:  Made it here 1
-2022/05/12 21:19:52 log.go:23: SENT TO ACCEPTOR
-2022/05/12 21:19:52 log.go:23:  Made it here 2
-2022/05/12 21:19:52 log.go:23: 1 Made it here
-2022/05/12 21:19:52 log.go:23:  Made it here 3
-2022/05/12 21:19:53 log.go:23: 1652370525429287 Notification from  Acceptors 
-2022/05/12 21:19:53 log.go:23: 1652370525466113 Learner has been notified
-2022/05/12 21:19:53 log.go:23: Total Number of Messages1
-2022/05/12 21:19:53 log.go:23:  Made it here 1
-2022/05/12 21:19:53 log.go:23:  Made it here 2
-2022/05/12 21:19:53 log.go:23: 1652370525421165 outcome has been sent to Acceptor
-2022/05/12 21:19:53 log.go:23:  Made it here 3
-2022/05/12 21:19:53 log.go:23: 1 Made it here
-2022/05/12 21:19:53 log.go:23: SENT TO ACCEPTOR
-2022/05/12 21:19:53 log.go:23: http://localhost:59752/status?nodeId=1652370525429287: Running
-2022/05/12 21:19:53 log.go:23: 1652370525466113 Learner has been notified
-2022/05/12 21:19:53 log.go:23: 1652370525429287 Notification from  Acceptors 
-2022/05/12 21:19:53 log.go:23: Total Number of Messages2
-2022/05/12 21:19:53 log.go:23: 54322 is not a Prime Number
+2022/05/14 15:21:23 log.go:23: 1652521875258876 Successfully Registered
+2022/05/14 15:21:23 log.go:23: 1652521875170840 Successfully Registered
+2022/05/14 15:21:23 log.go:23: 1652521875224707 Successfully Registered
+2022/05/14 15:21:23 log.go:23: 1652521875128817 Successfully Registered
+2022/05/14 15:21:23 log.go:23: 1652521875199823 Successfully Registered
+2022/05/14 15:21:23 log.go:23: 1652521875146634 Successfully Registered
+2022/05/14 15:21:53 log.go:23: 1652521875170840 Starts the Election
+2022/05/14 15:21:53 log.go:23: 1652521875146634 Starts the Election
+2022/05/14 15:21:53 log.go:23: 1652521875224707 Starts the Election
+2022/05/14 15:21:53 log.go:23: 1652521875258876 Starts the Election
+2022/05/14 15:21:53 log.go:23: 1652521875199823 Starts the Election
+2022/05/14 15:21:53 log.go:23: 1652521875128817 Starts the Election
+2022/05/14 15:21:53 log.go:23: 1652521875258876 I am the leader
+2022/05/14 15:21:53 log.go:23: 1652521875258876:1652521882781639 Role updated
+2022/05/14 15:21:53 log.go:23: 1652521875258876 Starts the Election
+2022/05/14 15:21:53 log.go:23: 1652521875258876
+2022/05/14 15:21:53 log.go:23: 1652521875258876
+2022/05/14 15:21:53 log.go:23: 1652521875258876
+2022/05/14 15:21:53 log.go:23: 1652521875258876
+2022/05/14 15:21:53 log.go:23: 1652521875258876
+2022/05/14 15:21:53 log.go:23: 1652521875258876
+2022/05/14 15:21:53 log.go:23: 1652521875258876 I am the leader
+2022/05/14 15:21:53 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:21:53 log.go:23: 1652521875258876:1652521882781639 Role updated
+2022/05/14 15:21:53 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:21:54 log.go:23: 1652521875258876 Starts the Election
+2022/05/14 15:21:54 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:21:54 log.go:23: 1652521875258876 I am the leader
+2022/05/14 15:21:54 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:21:54 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:21:54 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:21:54 log.go:23: 1652521875258876:1652521882781639 Role updated
+2022/05/14 15:21:54 log.go:23: 1652521875258876 Starts the Election
+2022/05/14 15:21:54 log.go:23: 1652521875258876 I am the leader
+2022/05/14 15:21:54 log.go:23: 1652521875258876:1652521882781639 Role updated
+2022/05/14 15:21:54 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:21:54 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:21:54 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:21:54 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:21:54 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:21:54 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:21:54 log.go:23: 1652521875258876 Starts the Election
+2022/05/14 15:21:54 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:21:54 log.go:23: 1652521875258876 I am the leader
+2022/05/14 15:21:54 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:21:54 log.go:23: 1652521875258876:1652521882781639 Role updated
+2022/05/14 15:21:54 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:21:54 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:21:54 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:21:54 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:21:54 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:21:54 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:21:55 log.go:23: 1652521875146634 Starts the Election
+2022/05/14 15:21:55 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:21:55 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:21:55 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:21:55 log.go:23: 1652521875258876 Starts the Election
+2022/05/14 15:21:55 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:21:55 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:21:55 log.go:23: 1652521875258876 I am the leader
+2022/05/14 15:21:55 log.go:23: 1652521875258876:1652521882781639 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:21:55 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:21:55 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:21:55 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:21:55 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:21:55 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:21:55 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:21:55 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:21:55 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:21:55 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:21:55 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:21:55 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:21:55 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:21:55 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:21:56 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:21:56 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:21:56 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:21:56 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:21:56 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:21:56 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:21:56 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:21:56 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:21:56 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:21:56 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:21:56 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:21:56 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:22:23 log.go:23: All Roles have been assigned
+2022/05/14 15:22:23 log.go:23: Process has been started
+2022/05/14 15:22:23 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:22:23 log.go:23: All Roles have been assigned
+2022/05/14 15:22:24 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:22:24 log.go:23: All Roles have been assigned
+2022/05/14 15:22:24 log.go:23: All Roles have been assigned
+2022/05/14 15:22:24 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:24 log.go:23: Made it here in Start Process 2
+2022/05/14 15:22:24 log.go:23: Made it here in Start Process 1
+2022/05/14 15:22:24 log.go:23: 54322
+2022/05/14 15:22:24 log.go:23: All Roles have been assigned
+2022/05/14 15:22:24 log.go:23: Number of Proposers 2
+2022/05/14 15:22:24 log.go:23: 1652521875258876 Proposers count has been notified
+2022/05/14 15:22:25 log.go:23: 1652521875224707 Start Range :27161End Range :54321
+2022/05/14 15:22:25 log.go:23: 1652521875170840 Start Range :0End Range :27160
+2022/05/14 15:22:25 log.go:23: Node ID 1652521875224707 says 54322 can be divided by27161
+2022/05/14 15:22:25 log.go:23: Node ID 1652521875170840 says 54322 can be divided by2
+2022/05/14 15:22:25 log.go:23: All Roles have been assigned
+2022/05/14 15:22:25 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:25 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:25 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:25 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:25 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:26 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:26 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:26 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:26 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:26 log.go:23: 1 Made it here
+2022/05/14 15:22:26 log.go:23: 1652521875170840 outcome has been sent to Acceptor
+2022/05/14 15:22:26 log.go:23:  Made it here 2
+2022/05/14 15:22:26 log.go:23:  Made it here 1
+2022/05/14 15:22:26 log.go:23:  Made it here 3
+2022/05/14 15:22:26 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:26 log.go:23: Total Number of Messages1
+2022/05/14 15:22:26 log.go:23: 1 Made it here
+2022/05/14 15:22:26 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:26 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:26 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:26 log.go:23: 1652521875224707 outcome has been sent to Acceptor
+2022/05/14 15:22:26 log.go:23:  Made it here 2
+2022/05/14 15:22:26 log.go:23:  Made it here 3
+2022/05/14 15:22:26 log.go:23:  Made it here 1
+2022/05/14 15:22:26 log.go:23: TRUE
+2022/05/14 15:22:26 log.go:23: TRUE
+2022/05/14 15:22:26 log.go:23: TRUE
+2022/05/14 15:22:26 log.go:23: TRUE
+2022/05/14 15:22:26 log.go:23: TRUE
+2022/05/14 15:22:26 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:26 log.go:23: TRUE
+2022/05/14 15:22:26 log.go:23: Total Number of Messages2
+2022/05/14 15:22:26 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:26 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:40 log.go:23: 1652521957447689 Successfully Registered
+2022/05/14 15:22:40 log.go:23: 1652521957784562 Successfully Registered
+2022/05/14 15:22:56 log.go:23: Everything is done
+2022/05/14 15:22:56 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:22:56 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:22:56 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:22:56 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:22:56 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:22:57 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:22:57 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:22:57 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:22:57 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:22:57 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:22:57 log.go:23: 25919
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 1
+2022/05/14 15:22:57 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 2
+2022/05/14 15:22:57 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 1
+2022/05/14 15:22:57 log.go:23: 35125
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 2
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 2
+2022/05/14 15:22:57 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 1
+2022/05/14 15:22:57 log.go:23: 54322
+2022/05/14 15:22:57 log.go:23: 1652521875258876 Proposers count has been notified
+2022/05/14 15:22:57 log.go:23: Number of Proposers 2
+2022/05/14 15:22:57 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:57 log.go:23: Number of Proposers 2
+2022/05/14 15:22:57 log.go:23: 1652521875258876 Proposers count has been notified
+2022/05/14 15:22:57 log.go:23: Number of Proposers 2
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 1
+2022/05/14 15:22:57 log.go:23: Number of Proposers 2
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 2
+2022/05/14 15:22:57 log.go:23: Number of Proposers 2
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 2
+2022/05/14 15:22:57 log.go:23: 54322
+2022/05/14 15:22:57 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:57 log.go:23: 25919
+2022/05/14 15:22:57 log.go:23: Made it here in Start Process 1
+2022/05/14 15:22:57 log.go:23: 1652521875258876 Proposers count has been notified
+2022/05/14 15:22:57 log.go:23: 1652521875258876 Proposers count has been notified
+2022/05/14 15:22:57 log.go:23: 1652521875258876 Proposers count has been notified
+2022/05/14 15:22:57 log.go:23: 1652521875224707 Start Range :12960End Range :25919
+2022/05/14 15:22:57 log.go:23: 1652521875224707 Start Range :17563End Range :35125
+2022/05/14 15:22:57 log.go:23: 1652521875170840 Start Range :0End Range :12959
+2022/05/14 15:22:57 log.go:23: 1652521875170840 Start Range :0End Range :12959
+2022/05/14 15:22:57 log.go:23: 1652521875224707 Start Range :12960End Range :25919
+2022/05/14 15:22:57 log.go:23: Node ID 1652521875170840 says 54322 can be divided by2
+2022/05/14 15:22:57 log.go:23: 1652521875170840 Start Range :0End Range :27160
+2022/05/14 15:22:57 log.go:23: Node ID 1652521875224707 says 54322 can be divided by27161
+2022/05/14 15:22:57 log.go:23: 1652521875224707 Start Range :27161End Range :54321
+2022/05/14 15:22:57 log.go:23: 1652521875224707 Start Range :27161End Range :54321
+2022/05/14 15:22:57 log.go:23: Node ID 1652521875224707 says 54322 can be divided by27161
+2022/05/14 15:22:57 log.go:23: Node ID 1652521875170840 says 35125 can be divided by5
+2022/05/14 15:22:57 log.go:23: 1652521875170840 Start Range :0End Range :17562
+2022/05/14 15:22:57 log.go:23: 1652521875170840 Start Range :0End Range :27160
+2022/05/14 15:22:57 log.go:23: Node ID 1652521875170840 says 54322 can be divided by2
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:58 log.go:23: 1652521875146634 Notification from  Proposer 
+2022/05/14 15:22:59 log.go:23:  Made it here 2
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23: 1652521875170840 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23: 1652521875170840 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23:  Made it here 3
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23: 1652521875170840 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23: 1652521875170840 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23: 1652521875170840 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23:  Made it here 4
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23:  Made it here 2
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23: 1652521875224707 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23:  Made it here 4
+2022/05/14 15:22:59 log.go:23: 1652521875224707 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23:  Made it here 3
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23: 1652521875224707 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23: 1652521875258876 Check Prime Number Request has been sent
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23: 1652521875224707 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23:  Made it here 2
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23:  Made it here 3
+2022/05/14 15:22:59 log.go:23: 1652521875224707 outcome has been sent to Acceptor
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23: SENT TO ACCEPTOR
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23:  Made it here 4
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23:  Made it here 2
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23:  Made it here 3
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23:  Made it here 4
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23:  Made it here 2
+2022/05/14 15:22:59 log.go:23:  Made it here 3
+2022/05/14 15:22:59 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:22:59 log.go:23:  Made it here 1
+2022/05/14 15:22:59 log.go:23:  Made it here 4
+2022/05/14 15:22:59 log.go:23: 1 Made it here
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: Total Number of Messages3
+2022/05/14 15:22:59 log.go:23: Total Number of Messages4
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: Total Number of Messages5
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: Total Number of Messages6
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: Total Number of Messages7
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: Total Number of Messages8
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: Total Number of Messages9
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: Total Number of Messages10
+2022/05/14 15:22:59 log.go:23: Total Number of Messages11
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: 1652521875128817 Notification from  Acceptors 
+2022/05/14 15:22:59 log.go:23: Total Number of Messages12
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:22:59 log.go:23: 1652521875146634 Learner has been notified
+2022/05/14 15:23:10 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:10 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:10 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:23:10 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:23:10 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:23:10 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:23:11 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:11 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:11 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:11 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:11 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:23:11 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:23:11 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:23:11 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:23:11 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:23:11 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:23:11 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:23:11 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:23:12 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:23:12 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:23:12 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:23:12 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:23:12 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:23:12 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:23:12 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:23:12 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:23:12 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:23:12 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:23:12 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:23:12 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:23:24 log.go:23: 1652521991486202 Successfully Registered
+2022/05/14 15:23:27 log.go:23: 1652521991802602 Successfully Registered
+2022/05/14 15:23:27 log.go:23: 1652521992091337 Successfully Registered
+2022/05/14 15:23:28 log.go:23: 1652521991896178 Successfully Registered
+2022/05/14 15:23:28 log.go:23: 1652521992112217 Successfully Registered
+2022/05/14 15:23:28 log.go:23: 1652521992228963 Successfully Registered
+2022/05/14 15:23:28 log.go:23: 1652521992358284 Successfully Registered
+2022/05/14 15:23:28 log.go:23: 1652521992598293 Successfully Registered
+2022/05/14 15:23:28 log.go:23: 1652521991865274 Successfully Registered
+2022/05/14 15:23:28 log.go:23: 1652521992852845 Successfully Registered
+2022/05/14 15:23:54 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:54 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:54 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:54 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:54 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:55 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:55 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:55 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:55 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:55 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:23:55 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:23:56 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:23:56 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:23:56 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:23:56 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:23:56 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:23:56 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:23:56 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:23:56 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:23:57 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:23:57 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:23:57 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:57 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:57 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:23:57 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:23:57 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:57 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:57 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:57 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:57 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:23:57 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:58 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:58 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:23:58 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:58 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:58 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:23:58 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:58 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:63780/status?nodeId=1652521875258876: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:58 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:58 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:58 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:58 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:58 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:23:58 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:58 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:58 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:58 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64495/status?nodeId=1652521992358284: Running
+2022/05/14 15:23:58 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:58 log.go:23: 1652521992358284:1652522008079230 Role updated
+2022/05/14 15:23:58 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:59 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:23:59 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:59 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:59 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:59 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:23:59 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:59 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:23:59 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:59 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:59 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:59 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:59 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64502/status?nodeId=1652521992598293: Running
+2022/05/14 15:23:59 log.go:23: 1652521992598293:1652522008235578 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:59 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:23:59 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:59 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:59 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:59 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:23:59 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:59 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:23:59 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:59 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:59 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:59 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:59 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:63772/status?nodeId=1652521875146634: Running
+2022/05/14 15:23:59 log.go:23: 1652521875146634:1652521882773423 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:59 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:23:59 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:59 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:59 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:59 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:23:59 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:23:59 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:59 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:59 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:59 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64487/status?nodeId=1652521992228963: Running
+2022/05/14 15:23:59 log.go:23: 1652521992228963:1652522008079230 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:23:59 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:23:59 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:23:59 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:24:00 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:24:00 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:24:00 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:24:00 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:24:00 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:24:00 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:24:00 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:24:00 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:63778/status?nodeId=1652521875224707: Running
+2022/05/14 15:24:00 log.go:23: 1652521875224707:1652521882784920 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:24:00 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:24:00 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:24:00 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:24:00 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:24:00 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:24:00 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:24:00 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:24:00 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:24:00 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:24:00 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64462/status?nodeId=1652521991802602: Running
+2022/05/14 15:24:00 log.go:23: 1652521991802602:1652522007117526 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:24:00 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:24:00 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:24:00 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:24:00 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:24:00 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:24:00 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:24:00 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:24:00 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:24:00 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64470/status?nodeId=1652521991896178: Running
+2022/05/14 15:24:00 log.go:23: 1652521991896178:1652522007777375 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:24:00 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:24:00 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:24:00 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:24:00 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:24:00 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:24:00 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:24:00 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:24:00 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:24:01 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:24:01 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:24:01 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:24:01 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64000/status?nodeId=1652521957447689: Running
+2022/05/14 15:24:01 log.go:23: 1652521957447689:1652521960086273 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:24:01 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:24:01 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:24:01 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:24:01 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:24:01 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:24:01 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:24:01 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:24:01 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:24:01 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64450/status?nodeId=1652521991486202: Running
+2022/05/14 15:24:01 log.go:23: 1652521991486202:1652522003763277 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:24:01 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:24:01 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:24:01 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:24:01 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:24:01 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:24:01 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:24:01 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:24:01 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:24:01 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64483/status?nodeId=1652521992112217: Running
+2022/05/14 15:24:01 log.go:23: 1652521992112217:1652522008011958 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:24:01 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:24:01 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:24:01 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:24:01 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:24:01 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:24:01 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:24:02 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:24:02 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:24:02 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64006/status?nodeId=1652521957784562: Running
+2022/05/14 15:24:02 log.go:23: 1652521957784562:1652521960275573 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:24:02 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:24:02 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:24:02 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:24:02 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:24:02 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:24:02 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:24:02 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:24:02 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63776/status?nodeId=1652521875199823: Running
+2022/05/14 15:24:02 log.go:23: 1652521875199823:1652521882827705 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:24:02 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:24:02 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:24:02 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:24:02 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:24:02 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:24:02 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:24:02 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:24:02 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63770/status?nodeId=1652521875128817: Running
+2022/05/14 15:24:02 log.go:23: 1652521875128817:1652521882844777 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:24:02 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:24:02 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:24:02 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:24:02 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:24:02 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:24:02 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:24:02 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:24:03 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:24:03 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:63774/status?nodeId=1652521875170840: Running
+2022/05/14 15:24:03 log.go:23: 1652521875170840:1652521882691365 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:24:03 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:24:03 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:24:03 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:24:03 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:24:03 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:24:03 log.go:23: http://localhost:64508/status?nodeId=1652521992852845: Running
+2022/05/14 15:24:03 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:24:03 log.go:23: 1652521992852845:1652522008246728 Role updated
+2022/05/14 15:24:03 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:24:03 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:24:03 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:24:03 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:24:03 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:24:03 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64478/status?nodeId=1652521992091337: Running
+2022/05/14 15:24:03 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:24:03 log.go:23: 1652521992091337:1652522007117526 Role updated
+2022/05/14 15:24:03 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:24:03 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:24:03 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:24:03 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:24:03 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:24:04 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:24:04 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:24:04 log.go:23: http://localhost:64466/status?nodeId=1652521991865274: Running
+2022/05/14 15:24:04 log.go:23: 1652521991865274:1652522008248104 Role updated
+2022/05/14 15:24:10 log.go:23: All Roles have been assigned
+2022/05/14 15:24:10 log.go:23: Process has been started
+2022/05/14 15:24:10 log.go:23: All Roles have been assigned
+2022/05/14 15:24:10 log.go:23: Process has been started
+2022/05/14 15:24:54 log.go:23: Process has been started
+2022/05/14 15:24:54 log.go:23: All Roles have been assigned
+2022/05/14 15:24:57 log.go:23: All Roles have been assigned
+2022/05/14 15:24:57 log.go:23: Process has been started
+2022/05/14 15:24:57 log.go:23: All Roles have been assigned
+2022/05/14 15:24:57 log.go:23: Process has been started
+2022/05/14 15:24:58 log.go:23: All Roles have been assigned
+2022/05/14 15:24:58 log.go:23: Process has been started
+2022/05/14 15:24:58 log.go:23: Process has been started
+2022/05/14 15:24:58 log.go:23: All Roles have been assigned
+2022/05/14 15:24:58 log.go:23: All Roles have been assigned
+2022/05/14 15:24:58 log.go:23: Process has been started
+2022/05/14 15:24:58 log.go:23: Process has been started
+2022/05/14 15:24:58 log.go:23: All Roles have been assigned
+2022/05/14 15:24:58 log.go:23: All Roles have been assigned
+2022/05/14 15:24:58 log.go:23: Process has been started
+2022/05/14 15:24:58 log.go:23: All Roles have been assigned
+2022/05/14 15:24:58 log.go:23: Process has been started
+2022/05/14 15:24:58 log.go:23: Process has been started
+2022/05/14 15:24:58 log.go:23: All Roles have been assigned

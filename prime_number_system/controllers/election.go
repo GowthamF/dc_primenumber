@@ -36,10 +36,11 @@ func RequestElection(c *gin.Context) {
 
 }
 
+var currentIndex int = 0
+
 func GetHigherInstanceIds(myId string) {
 
 	masterNodes := services.GetNodesByRole(models.MasterNode)
-
 	if len(masterNodes) == 0 {
 		RemoveElectionLockFile(models.MasterLock)
 	} else {
@@ -60,7 +61,7 @@ func GetHigherInstanceIds(myId string) {
 			if !hasProcessStarted {
 				hasProcessStarted = true
 				go sidecar.Log("Process has been started")
-				go services.StartProcess()
+				// go services.StartProcess()
 			}
 		})
 		return
@@ -100,17 +101,28 @@ func GetHigherInstanceIds(myId string) {
 			RemoveElectionLockFile(models.ElectionLock)
 			nodemessage.SendMessage(nodemessage.MasterElectionMessage, myId)
 			sidecar.Log(myId + " I am the leader")
+			ch2 := make(chan string)
+			go nodemessage.ReceiveMessage(ch2, nodemessage.NewNodeSpawned)
+			go func() {
+				go sidecar.Log(<-ch2)
+				durationOfTime := time.Duration(30) * time.Second
+				time.AfterFunc(durationOfTime, func() {
+					go services.StartProcess(currentIndex)
+					currentIndex += 1
+				})
+			}()
 			CreateElectionLockFile(models.MasterLock)
 			go services.UpdateRole(myId, models.MasterNode)
-			services.ReadFile()
 			go assignRoles(&myId)
 			durationOfTime := time.Duration(30) * time.Second
 			time.AfterFunc(durationOfTime, func() {
 				go sidecar.Log("All Roles have been assigned")
 				if !hasProcessStarted {
+
 					hasProcessStarted = true
 					go sidecar.Log("Process has been started")
-					go services.StartProcess()
+					go services.StartProcess(currentIndex)
+					currentIndex += 1
 				}
 			})
 

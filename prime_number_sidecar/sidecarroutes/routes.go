@@ -14,6 +14,7 @@ func SetupRouter() *gin.Engine {
 	})
 
 	routeEngine.POST("/log", sidecarcontrollers.LogLn)
+	routeEngine.POST("/primeNumberLog", sidecarcontrollers.PrimeNumberLogLn)
 
 	return routeEngine
 }

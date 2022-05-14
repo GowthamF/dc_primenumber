@@ -25,3 +25,14 @@ func LogLn(c *gin.Context) {
 	mutex.Unlock()
 	c.Status(http.StatusOK)
 }
+
+func PrimeNumberLogLn(c *gin.Context) {
+	file, _ := os.OpenFile("primeNumber.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+	L := log.New(file, "", log.Ldate|log.Ltime|log.Lshortfile)
+	var message string
+	body, _ := ioutil.ReadAll(c.Request.Body)
+	json.Unmarshal(body, &message)
+	L.Println(message)
+	file.Close()
+	c.Status(http.StatusOK)
+}
